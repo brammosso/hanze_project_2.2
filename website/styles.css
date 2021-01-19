@@ -1,0 +1,66 @@
+body    {
+    background-color: white;
+}
+
+.title  {
+    color: rgb(44,40,127);
+    font-family: Verdana;
+    text-align: center;
+}
+
+.sidebar    {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(44,40,127);
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidebar a{
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    display: block;
+    font-family: Verdana;
+}
+
+.sidebar a:hover{
+    color: black;
+}
+
+.top10{
+    position: relative;
+    border: 5px solid black;
+    width: 500px;
+    height: 300px;
+    left: 20%;
+    float: left;
+}
+
+.weatherinfo{
+    position: relative;
+    float: right;
+    border: 5px solid black;
+    width: 500px;
+    height: 300px;
+    right: 5%;
+
+}
+
+.graphl{
+    position: relative;
+    border: 10px solid black;
+    width: 500px;
+    height: 300px;
+    left: 20%;
+    float: left;
+}
+
+.graphl{
+    border: 2px black;
+}
