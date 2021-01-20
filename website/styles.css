@@ -1,66 +1,128 @@
-body    {
-    background-color: white;
+*{
+    box-sizing: border-box;
 }
 
-.title  {
-    color: rgb(44,40,127);
+body {
+    padding: 0;
+    margin: 0;
     font-family: Verdana;
-    text-align: center;
 }
 
-.sidebar    {
-    height: 100%;
-    width: 200px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
+/*Header is de balk met de 3 lijntjes en de logo*/
+#header {
+    background-color: #ededed;
+    padding: 15px 30px;
+    display: relative;
+    align-items: center;
+    position: relative;
     left: 0;
-    background-color: rgb(44,40,127);
-    overflow-x: hidden;
-    padding-top: 20px;
+    transition: 0.3s left;
 }
 
-.sidebar a{
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 20px;
-    color: white;
-    display: block;
-    font-family: Verdana;
-}
-
-.sidebar a:hover{
-    color: black;
-}
-
-.top10{
-    position: relative;
-    border: 5px solid black;
-    width: 500px;
-    height: 300px;
-    left: 20%;
-    float: left;
-}
-
-.weatherinfo{
-    position: relative;
+/*Image in de header*/
+#header img{
     float: right;
-    border: 5px solid black;
-    width: 500px;
-    height: 300px;
-    right: 5%;
-
-}
-
-.graphl{
     position: relative;
-    border: 10px solid black;
-    width: 500px;
-    height: 300px;
-    left: 20%;
-    float: left;
+    bottom: 38px;
 }
 
-.graphl{
-    border: 2px black;
+/*Checkbox die niet gedisplayed word*/
+#toggle {
+    display: none;
 }
+
+/*dit gebeurd er met de content als de box checked is*/
+#toggle:checked~#content {
+    left: 240px;
+}
+
+/*dit gebeurd er met de menu als de box checked is*/
+#toggle:checked~#menu {
+    left: 0px;
+}
+
+/*dit gebeurd er met de header als de box checked is*/
+#toggle:checked~#header {
+    left: 240px;
+}
+
+/*Menu met de knoppen logout etc*/
+#menu {
+    position: fixed;
+    left: -240px;
+    top: 0;
+    bottom: 0;
+    width: 240px;
+    background-color: rgb(44,40,127);
+    transition: 0.3s left;
+}
+
+/*Menu styling*/
+#menu ul {
+    padding: 0px;
+    margin: 0;
+    list-style: none;
+}
+
+/*Menu styling*/
+#menu>ul>li>a {
+    text-decoration: none;
+    display: block;
+    padding: 15px 20px;
+    color: white;
+}
+
+/*Menu styling*/
+#menu img{
+    padding: 6px;
+    position: center;
+}
+
+/*Menu styling*/
+#menu>ul>li>a:hover {
+    background-color: #504d95;
+}
+
+label[for=toggle] {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 30px;
+    justify-content: space-between;
+}
+
+label[for=toggle] span{
+    display: block;
+    height: 5px;
+    background-color: #6c6c6c;
+    border-radius: 2px;
+    width: 30px;
+}
+
+/*Dit is het witte gebied waarin de grafieken komen*/
+#content {
+    position: relative;
+    left: 0px;
+    transition: 0.3s left;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin: 30px;
+    grid-row-gap: 3em;
+    grid-column-gap: 1em;
+    padding-right: 40px;
+    padding-top: 1em;
+}
+/*Positioning div content in content*/
+.grid > div {
+    padding: 10px;
+    min-width: 550px;
+    border: 5px solid gray;
+    overflow: auto;
+    margin-left: 30px;
+    position: relative;
+}
+
+
