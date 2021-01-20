@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Test map</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPvkYxdvvVADFAfljO3DY6cwn9nbA4G8Q&callback=initMap&libraries=&v=weekly" defer></script>
     <style type="text/css">
@@ -19,45 +20,82 @@
             padding: 0;
         }
     </style>
-    <script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['line']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            data = new google.visualization.DataTable();
+            data.addColumn('number', 'Time in hours');
+            data.addColumn('number', 'Weatherstation ....');
+
+            data.addRows([
+                [0,  37.8],
+                [1,  30.9],
+                [2,  30.9],
+                [3,  25.4],
+                [4,  11.7],
+                [5,  11.9],
+                [6,   8.8],
+                [7,   7.6],
+                [8,  12.3],
+                [9,  16.9],
+                [10, 12.8],
+                [11,  5.3],
+                [12,  6.6],
+                [13,  4.8],
+                [14,  4.2]
+            ]);
+
+            options = {
+                chart: {
+                    title: 'Neerslag',
+                    subtitle: 'in mm)'
+                },
+                width: 900,
+                height: 500,
+                axes: {
+                    x: {
+                        0: {side: 'bottum'}
+                    }
+                }
+            };
+            chart = new google.charts.Line(document.getElementById('line_top_x'));
+            chart.draw(data, google.charts.Line.convertOptions(options));
+        }
+
         function initMap() {
-            const weatherstation1 = { lat: 53.1424984, lng: 7.0367877 };
-            const weatherstation2 = { lat: 52.992753, lng: 6.5642284 };
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 10,
-                center: weatherstation1,
+                center: { lat: 53.1424984, lng: 7.0367877 },
             });
-            test1 = new google.maps.Marker({
-                position: weatherstation1,
-                id: 8888,
-                map,
-                title: "Weather station1!",
-            });
-            test1.addListener("click", function () {giveID(test1)});
-            test = new google.maps.Marker({
-                position: weatherstation2,
-                id: 1920,
-                map,
-                title: "Weather station2!",
-            });
-            test.addListener("click", function () {giveID(test)});
-
-            var i = 0;
-            while (i < 10) {
-                a = 53.1763506 + i;
-                b = i;
-                const locatie = new google.maps.Marker({
-                    position: { lat: a, lng: 6.9723944 },
-                    id: i,
-                    map,
-                    title: "Weather station!",
-                });
-                locatie.addListener("click", function () {giveID(locatie)});
-                i++;
-            }
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                var myObj = JSON.parse(this.responseText);
+                i = 0;
+                while (i < myObj.weatherstations.length){
+                    const locatie = new google.maps.Marker({
+                        position: { lat: myObj.weatherstations[i].latitude, lng: myObj.weatherstations[i].longitude },
+                        id: myObj.weatherstations[i].stn,
+                        name: myObj.weatherstations[i].name,
+                        country: myObj.weatherstations[i].country,
+                        map,
+                        title: "Weather station!",
+                    });
+                    locatie.addListener("click", function () {giveID(locatie)});
+                    i++;
+                }
+            };
+            xmlhttp.open("GET", "data.json", true);
+            xmlhttp.send();
 
             function giveID(station) {
                 document.getElementById("selected").innerHTML = station.id;
+                data.removeColumn(0);
+                data.addColumn('number', station.name + " - " +station.country);
+                chart = new google.charts.Line(document.getElementById('line_top_x'));
+                chart.draw(data, google.charts.Line.convertOptions(options));
             }
         }
     </script>
@@ -65,5 +103,10 @@
 <body>
 <p id="selected"></p>
 <div id="map"></div>
+<div id="tabel">
+    <h1>Tabel</h1>
+    <div id="line_top_x"></div>
+
+</div>
 </body>
 </html>
