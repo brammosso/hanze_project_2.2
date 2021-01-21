@@ -27,52 +27,48 @@ if (!isset($_SESSION["logged_in"])) {
     <script type="text/javascript">
         google.charts.load('current', {'packages':['line']});
         google.charts.setOnLoadCallback(drawChart);
+        daysBackLeft = 0;
+        daysBackRight = 0;
 
         function drawChart() {
 
-            data = new google.visualization.DataTable(document.getElementById('test'));
+            data = new google.visualization.DataTable(document.getElementById('line_top_x'));
+            data2 = new google.visualization.DataTable(document.getElementById('line_top_x2'));
             data.addColumn('number', 'Time in hours');
+            data2.addColumn('number', 'Time in hours');
             data.addColumn('number', 'Weatherstation ....');
-
-            data.addRows([
-                [0,  37.8],
-                [1,  30.9],
-                [2,  30.9],
-                [3,  25.4],
-                [4,  11.7],
-                [5,  11.9],
-                [6,   8.8],
-                [7,   7.6],
-                [8,  12.3],
-                [9,  16.9],
-                [10, 12.8],
-                [11,  5.3],
-                [12,  6.6],
-                [13,  4.8],
-                [14,  4.2]
-            ]);
+            data2.addColumn('number', 'Weatherstation ....');
+            data.addRows([[0,  0]]);
+            data2.addRows([[0,  0]]);
 
             options = {
                 chart: {
-                    title: 'Neerslag',
-                    subtitle: 'in mm)'
+                    title: 'Rainfall',
+                    subtitle: 'Rainfall in mm',
                 },
                 height: 500,
                 axes: {
                     x: {
-                        0: {side: 'bottum'}
+                        0: {side: 'bottom'}
                     }
                 }
             };
             chart = new google.charts.Line(document.getElementById('line_top_x'));
+            chart2 = new google.charts.Line(document.getElementById('line_top_x2'));
             chart.draw(data, google.charts.Line.convertOptions(options));
+            chart2.draw(data2, google.charts.Line.convertOptions(options));
         }
 
         function initMap() {
-            const map = new google.maps.Map(document.getElementById("map"), {
+            var mapOptions = {
                 zoom: 10,
                 center: { lat: 53.1424984, lng: 7.0367877 },
-            });
+                streetViewControl: false,
+            }
+
+            const map = new google.maps.Map(document.getElementById("map"), mapOptions)
+            const map2 = new google.maps.Map(document.getElementById("map2"), mapOptions)
+
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
                 var myObj = JSON.parse(this.responseText);
@@ -83,24 +79,197 @@ if (!isset($_SESSION["logged_in"])) {
                         id: myObj.weatherstations[i].stn,
                         name: myObj.weatherstations[i].name,
                         country: myObj.weatherstations[i].country,
-                        map,
-                        title: "Weather station!",
+                        map: map,
+                        title: myObj.weatherstations[i].name + " - " + myObj.weatherstations[i].country,
                     });
-                    locatie.addListener("click", function () {giveID(locatie)});
+                    locatie.addListener("click", function () {giveID(locatie, "")});
+
+                    const locatie2 = new google.maps.Marker({
+                        position: { lat: myObj.weatherstations[i].latitude, lng: myObj.weatherstations[i].longitude },
+                        id: myObj.weatherstations[i].stn,
+                        name: myObj.weatherstations[i].name,
+                        country: myObj.weatherstations[i].country,
+                        map: map2,
+                        title: myObj.weatherstations[i].name + " - " + myObj.weatherstations[i].country,
+                    });
+                    locatie2.addListener("click", function () {giveID(locatie2, 2)});
                     i++;
                 }
             };
             xmlhttp.open("GET", "data.json", true);
             xmlhttp.send();
 
-            function giveID(station) {
-                document.getElementById("selected").innerHTML = station.id;
-                data.removeColumn(0);
-                data.addColumn('number', station.name + " - " +station.country);
+            function giveID(station, map) {
+                document.getElementById("selected"+map).innerHTML = station.id;
+                if (map == 2){
+                    daysBackRight = 0;
+                    data2.removeColumn(1);
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var myObj = JSON.parse(this.responseText);
+                            i = 0;
+                            while (i < myObj.length){
+                                data2.addRows([[myObj[i][0],  myObj[i][1]]]);
+                                i++;
+                            }
+                        }
+                    };
+                    xmlhttp.open("GET", "fetch_data/chart.php?station="+station.id+"&back=0", true);
+                    xmlhttp.send();
+                    id_selected_right = station.id;
+                    name_selected_right = station.name;
+                    country_selected_right = station.country;
+                    data2.addColumn('number', station.name + " - " +station.country);
+                    chart2 = new google.charts.Line(document.getElementById('line_top_x2'));
+                    chart2.draw(data2, google.charts.Line.convertOptions(options));
+                }
+                else{
+                    daysBackLeft = 0;
+                    data.removeColumn(1);
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var myObj = JSON.parse(this.responseText);
+                            i = 0;
+                            while (i < myObj.length){
+                                data.addRows([[myObj[i][0],  myObj[i][1]]]);
+                                i++;
+                            }
+                        }
+                    };
+                    xmlhttp.open("GET", "fetch_data/chart.php?station="+station.id+"&back=0", true);
+                    xmlhttp.send();
+                    id_selected = station.id;
+                    name_selected = station.name;
+                    country_selected = station.country;
+                    data.addColumn('number', station.name + " - " +station.country);
+
+                    chart = new google.charts.Line(document.getElementById('line_top_x'));
+                    chart.draw(data, google.charts.Line.convertOptions(options));
+                }
+            }
+
+
+        }
+        function chartLeftBack(){
+            if (daysBackLeft > 1){
+                alert("You can't go back any further");
+            }
+            else{
+                daysBackLeft ++;
+                data = new google.visualization.DataTable(document.getElementById('line_top_x'));
+                data.addColumn('number', 'Time in hours');
+                data.addColumn('number', name_selected + " - " + country_selected);
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var myObj = JSON.parse(this.responseText);
+                        i = 0;
+                        while (i < myObj.length){
+                            data.addRows([[myObj[i][0],  myObj[i][1]]]);
+                            i++;
+                        }
+                    }
+                };
+                xmlhttp.open("GET", "fetch_data/chart.php?station="+id_selected+"&back=" +daysBackLeft, true);
+                xmlhttp.send();
+
+                chart = new google.charts.Line(document.getElementById('line_top_x'));
+                chart.draw(data, google.charts.Line.convertOptions(options));
+            }
+
+        }
+
+        function chartRightBack(){
+            if (daysBackRight > 1){
+                alert("You can't go back any further");
+            }
+            else{
+                daysBackRight ++;
+                data2 = new google.visualization.DataTable(document.getElementById('line_top_x2'));
+                data2.addColumn('number', 'Time in hours');
+                data2.addColumn('number', name_selected_right + " - " + country_selected_right);
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var myObj = JSON.parse(this.responseText);
+                        i = 0;
+                        while (i < myObj.length){
+                            data2.addRows([[myObj[i][0],  myObj[i][1]]]);
+                            i++;
+                        }
+                    }
+                };
+                xmlhttp.open("GET", "fetch_data/chart.php?station="+id_selected_right+"&back=" +daysBackRight, true);
+                xmlhttp.send();
+
+                chart2 = new google.charts.Line(document.getElementById('line_top_x2'));
+                chart2.draw(data2, google.charts.Line.convertOptions(options));
+            }
+        }
+
+        function chartLeftForward(){
+            if (daysBackLeft < 1){
+                alert("You can't days forward");
+            }
+            else{
+                daysBackLeft--;
+                data = new google.visualization.DataTable(document.getElementById('line_top_x'));
+                data.addColumn('number', 'Time in hours');
+                data.addColumn('number', name_selected + " - " + country_selected);
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var myObj = JSON.parse(this.responseText);
+                        i = 0;
+                        while (i < myObj.length){
+                            data.addRows([[myObj[i][0],  myObj[i][1]]]);
+                            i++;
+                        }
+                    }
+                };
+                xmlhttp.open("GET", "fetch_data/chart.php?station="+id_selected+"&back=" +daysBackLeft, true);
+                xmlhttp.send();
+
                 chart = new google.charts.Line(document.getElementById('line_top_x'));
                 chart.draw(data, google.charts.Line.convertOptions(options));
             }
         }
+
+        function chartRightForward(){
+            if (daysBackRight < 1){
+                alert("You can't days forward");
+            }
+            else{
+                daysBackRight--;
+                data2 = new google.visualization.DataTable(document.getElementById('line_top_x2'));
+                data2.addColumn('number', 'Time in hours');
+                data2.addColumn('number', name_selected_right + " - " + country_selected_right);
+
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var myObj = JSON.parse(this.responseText);
+                        i = 0;
+                        while (i < myObj.length){
+                            data2.addRows([[myObj[i][0],  myObj[i][1]]]);
+                            i++;
+                        }
+                    }
+                };
+                xmlhttp.open("GET", "fetch_data/chart.php?station="+id_selected_right+"&back=" +daysBackRight, true);
+                xmlhttp.send();
+
+                chart2 = new google.charts.Line(document.getElementById('line_top_x2'));
+                chart2.draw(data2, google.charts.Line.convertOptions(options));
+            }
+        }
+
+
     </script>
 </head>
 <body>
@@ -133,11 +302,17 @@ if (!isset($_SESSION["logged_in"])) {
                 <h1>Graph LO</h1>
                 <p id="selected"></p>
                 <div id="map"></div>
-                <div id= "test" style="width:100%;"><div id="line_top_x"></div></div>
+                <div  id="line_top_x" style="width:100%"></div>
+                <button style="margin: 1em 1em 1em 2em" onclick="chartLeftBack();"><--</button>
+                <button style="margin: 1em 1em 1em 2em" onclick="chartLeftForward();">--></button>
             </div>
             <div class="gr">
                 <h1>Graph RO</h1>
-                "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+                <p id="selected2"></p>
+                <div id="map2"></div>
+                <div  id="line_top_x2" style="width:100%"></div>
+                <button style="margin: 1em 1em 1em 2em" onclick="chartRightBack();"><--</button>
+                <button style="margin: 1em 1em 1em 2em" onclick="chartRightForward();">--></button>
             </div>
         </div>
     </div>
