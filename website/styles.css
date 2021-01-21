@@ -106,23 +106,39 @@ label[for=toggle] span{
     transition: 0.3s left;
 }
 
+/*grid settings*/
 .grid {
     display: grid;
     grid-template-columns: 50% 50%;
     margin: 30px;
-    grid-row-gap: 3em;
-    grid-column-gap: 1em;
+    grid-row-gap: 2em;
+    grid-column-gap: 2em;
     padding-right: 40px;
     padding-top: 1em;
+    padding-left: 40px;
+    padding-left: 25px;
 }
 /*Positioning div content in content*/
-.grid > div {
+.grid div {
+    border: 5px solid gray;
     padding: 10px;
-    min-width: 550px;
     border: 5px solid gray;
     overflow: auto;
-    margin-left: 30px;
-    position: relative;
+    margin: 10px;
+
 }
 
+@media only screen and (max-width: 1100px) {
 
+    .grid {
+        display: grid;
+        grid-template-columns: 100%;
+        margin: 30px;
+        grid-row-gap: 2em;
+        grid-column-gap: 2em;
+        padding-right: 40px;
+        padding-top: 1em;
+        padding-left: 40px;
+        padding-left: 25px;
+    }
+}
