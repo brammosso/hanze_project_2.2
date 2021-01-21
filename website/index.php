@@ -1,3 +1,20 @@
+<?php
+/**
+ * @file index.php
+ *
+ * @brief This is the main page of the website.
+ */
+
+// Starting a session if one has not yet been established
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+// Checking if the logged_in session variable exists, this is created after logging in
+if (!isset($_SESSION["logged_in"])) {
+    header('Location: login.php');
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
