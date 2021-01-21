@@ -6,6 +6,7 @@ body {
     padding: 0;
     margin: 0;
     font-family: Verdana;
+    overflow-x: hidden;
 }
 
 /*Header is de balk met de 3 lijntjes en de logo*/
@@ -62,6 +63,8 @@ body {
     padding: 0px;
     margin: 0;
     list-style: none;
+    display: flex;
+    flex-direction: column;
 }
 
 /*Menu styling*/
@@ -80,7 +83,7 @@ body {
 
 /*Menu styling*/
 #menu>ul>li>a:hover {
-    background-color: #504d95;
+    background-color: rgb(61, 57, 153);
 }
 
 label[for=toggle] {
@@ -120,39 +123,117 @@ label[for=toggle] span{
 }
 /*Positioning div content in content*/
 .grid .top10 {
-    border: 5px solid gray;
+    border: 5px solid #ededed;
     padding: 10px;
+    background-color: #ededed;
+    padding-top: 0px;
     overflow: auto;
     margin: 10px;
+    border-radius: 5px;
+    -webkit-transition: background-color 0.3s ease-in-out;
+    -moz-transition: background-color 0.3s ease-in-out;
+    -o-transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.grid .top10:hover {
+    /*border: 5px solid rgb(44,40,127);*/
+    transition: 0.3s left;
+    pointer: cursor;
+    background-color: white;
+}
+
+/*styling of the tabs in content area*/
 .grid .gl {
-    border: 5px solid gray;
+    border: 5px solid #ededed;
     padding: 10px;
+    background-color: #ededed;
+    padding-top: 0px;
     overflow: auto;
     margin: 10px;
+    border-radius: 5px;
+    -webkit-transition: background-color 0.3s ease-in-out;
+    -moz-transition: background-color 0.3s ease-in-out;
+    -o-transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.grid .gl:hover {
+    /*border: 5px solid rgb(44,40,127);*/
+    transition: 0.3s left;
+    pointer: cursor;
+    background-color: white;
+}
+
+/*styling of the tabs in content area*/
 .grid .gr {
-    border: 5px solid gray;
+    border: 5px solid #ededed;
     padding: 10px;
+    padding-top: 0px;
+    background-color: #ededed;
     overflow: auto;
     margin: 10px;
+    border-radius: 5px;
+    -webkit-transition: background-color 0.3s ease-in-out;
+    -moz-transition: background-color 0.3s ease-in-out;
+    -o-transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.grid .gr:hover {
+    /*border: 5px solid rgb(44,40,127);*/
+    transition: 0.3s left;
+    pointer: cursor;
+    background-color: white;
+}
+
+/*styling of the tabs in content area*/
 .grid .weatherinfo {
-    border: 5px solid gray;
+    border: 5px solid #ededed;
     padding: 10px;
+    background-color: #ededed;
+    padding-top: 0px;
     overflow: auto;
     margin: 10px;
+    border-radius: 5px;
+    -webkit-transition: background-color 0.3s ease-in-out;
+    -moz-transition: background-color 0.3s ease-in-out;
+    -o-transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.grid .weatherinfo:hover {
+    /*border: 5px solid rgb(44,40,127);*/
+    transition: 0.3s left;
+    pointer: cursor;
+    background-color: white;
+}
+
+.grid h1 {
+    font-family: 'Raleway',sans-serif;
+    font-size: 150%;
+    color: #333333;
+    font-weight: 100;
+    line-height: 13px;
+    text-transform: uppercase;
+    font-weight: 700;
+
 }
 
 #map {
     height: 100%;
+    padding: 10px;
 }
 
 #map2 {
     height: 100%;
 }
 
+/* resizing screen */
 @media only screen and (max-width: 1100px) {
 
     .grid {
@@ -166,4 +247,15 @@ label[for=toggle] span{
         padding-left: 40px;
         padding-left: 25px;
     }
+}
+
+
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(61, 57, 153);
+    border-radius: 10px;
 }

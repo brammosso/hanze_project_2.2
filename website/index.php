@@ -24,11 +24,11 @@ if (!isset($_SESSION["logged_in"])) {
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPvkYxdvvVADFAfljO3DY6cwn9nbA4G8Q&callback=initMap&libraries=&v=weekly" defer></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+
     <script type="text/javascript">
         google.charts.load('current', {'packages':['line']});
         google.charts.setOnLoadCallback(drawChart);
-        daysBackLeft = 0;
-        daysBackRight = 0;
 
         function drawChart() {
 
@@ -291,15 +291,15 @@ if (!isset($_SESSION["logged_in"])) {
     <div id="content">
         <div class="grid">
             <div class="top10">
-                <h1>Top 10 humidity</h1>
+                <h1>Top 10 humidity &nbsp <i class="fas fa-tint" style="font-size: 28px"></i></h1>
                 "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
             </div>
             <div class="weatherinfo">
-                <h1>Weather info table</h1>
+                <h1>Weather info table &nbsp <i class="fas fa-table" style="font-size: 28px"></i></h1>
                 "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
             </div>
             <div class="gl">
-                <h1>Graph LO</h1>
+                <h1>Graph LO &nbsp <i class="fas fa-chart-line" style="font-size: 28px"></i></h1>
                 <p id="selected"></p>
                 <div id="map"></div>
                 <div  id="line_top_x" style="width:100%"></div>
@@ -307,7 +307,7 @@ if (!isset($_SESSION["logged_in"])) {
                 <button style="margin: 1em 1em 1em 2em" onclick="chartLeftForward();">--></button>
             </div>
             <div class="gr">
-                <h1>Graph RO</h1>
+                <h1>Graph RO &nbsp <i class="fas fa-chart-line" style="font-size: 28px"></i></h1>
                 <p id="selected2"></p>
                 <div id="map2"></div>
                 <div  id="line_top_x2" style="width:100%"></div>
@@ -321,8 +321,9 @@ if (!isset($_SESSION["logged_in"])) {
         <!--lijst met menu items-->
         <ul>
             <li><img src="images/logo8.png" width="100%" height="100%"></li>
-            <li><a href="">Download Files</a></i></li>
-            <li><a href="login.php">Logout</a></li>
+                <li><a href="">Download Files &nbsp <i class="fas fa-file-download" style="font-size: 18px"></a></i></li>
+                <li><a href="login.php">Logout &nbsp <i class="fas fa-sign-out-alt" style="font-size: 18px"></i></a></li>
+
         </ul>
     </div>
 </div>
