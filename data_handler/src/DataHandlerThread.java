@@ -1,4 +1,8 @@
-
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class DataHandlerThread extends Thread {
 
@@ -10,7 +14,15 @@ public class DataHandlerThread extends Thread {
     }
 
     public void run() {
-
+        try {
+            // TODO: Change this to write the data correctly to the correct file
+            Files.createDirectories(Paths.get("/data/datum"));
+            File testFile = new File("/data/datum/id.txt");
+            FileOutputStream oFile = new FileOutputStream(testFile, true);
+            oFile.write(data.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void start() {

@@ -8,8 +8,11 @@ public class DataHandlerServer {
 
     private ServerSocket ss = null;
     private Thread thread = null;
+    private FolderRemover fr = null;
 
     public DataHandlerServer(int port) {
+        fr = new FolderRemover();
+        fr.start();
         try {
             ss = new ServerSocket(port);
         } catch (IOException e) {
@@ -25,8 +28,9 @@ public class DataHandlerServer {
                 BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
                 String line = null;
                 while ((line = in.readLine()) != null) {
-                    // TODO: Save the data somehow
                     System.out.println(line);
+                    DataHandlerThread dht = new DataHandlerThread(line);
+                    dht.start();
                 }
 
             } catch (IOException e) {
