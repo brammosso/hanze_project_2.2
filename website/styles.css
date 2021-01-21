@@ -119,13 +119,32 @@ label[for=toggle] span{
     padding-left: 25px;
 }
 /*Positioning div content in content*/
-.grid div {
-    /*border: 5px solid gray;*/
+.grid .top10 {
+    border: 5px solid gray;
     padding: 10px;
-    /*overflow: auto;*/
-    /*margin: 10px;*/
+    overflow: auto;
+    margin: 10px;
 }
-/**/
+
+.grid .gl {
+    border: 5px solid gray;
+    padding: 10px;
+    overflow: auto;
+    margin: 10px;
+}
+.grid .gr {
+    border: 5px solid gray;
+    padding: 10px;
+    overflow: auto;
+    margin: 10px;
+}
+.grid .weatherinfo {
+    border: 5px solid gray;
+    padding: 10px;
+    overflow: auto;
+    margin: 10px;
+}
+
 #map {
     height: 100%;
 }
