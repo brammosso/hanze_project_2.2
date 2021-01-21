@@ -120,11 +120,10 @@ label[for=toggle] span{
 }
 /*Positioning div content in content*/
 .grid div {
-    border: 5px solid gray;
+    /*border: 5px solid gray;*/
     padding: 10px;
-    border: 5px solid gray;
-    overflow: auto;
-    margin: 10px;
+    /*overflow: auto;*/
+    /*margin: 10px;*/
 }
 /**/
 #map {
