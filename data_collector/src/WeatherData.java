@@ -93,11 +93,11 @@ public class WeatherData extends Thread {
         hour = Byte.parseByte(Integer.toString(ldt.getHour()));
         minute = Byte.parseByte(Integer.toString(ldt.getMinute()));
         second = Byte.parseByte(Integer.toString(ldt.getSecond()));
-        System.out.println("Year: " + year);
+        /*System.out.println("Year: " + year);
         System.out.println("month: " + month);
         System.out.println("day: " + day);
         System.out.println("hour: " + hour);
         System.out.println("minute: " + minute);
-        System.out.println("second: " + second);
+        System.out.println("second: " + second);*/
     }
 }
