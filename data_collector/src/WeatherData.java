@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.lang.Math;
 
 public class WeatherData extends Thread {
 
@@ -62,17 +63,31 @@ public class WeatherData extends Thread {
                     Float dewpoint = station.weatherStation.dewPoint;
                     Float rainfall = station.weatherStation.rainfall;
 
+                    // calculate the humidity with the temperature and dewpoint
+                    // first calculate value A
+                    // A = (17.625 * temperature) / (243.03 + temperature)
+                    Double A = (17.625*temperature)/ (243.03 + temperature);
+                    
+                    // calculate value B
+                    // uses the same formula, but with the dewpoint instead
+                    // E = (17.625 * dewpoint) / (243.03 + dewpoint)
+                    Double B = (17.625*dewpoint) / (243.03 + dewpoint);
+
+                    // calculate the relative humidity with both values
+                    // Rh = (e^B) / (e^A) * 100
+                    Double humidity = (Math.exp(B) / Math.exp(A)) * 100;
+
                     String day_padded = String.format("%02d", day_int);
                     String month_padded = String.format("%02d", month_int);
                     String year_padded = String.format("%02d", year_int);
                     String hour_padded = String.format("%02d", hour);
 
                     String temp_padded = String.format("%+05.1f", temperature);
-                    String dewp_padded = String.format("%+05.1f", dewpoint);
-                    String rain_padded = String.format("%+06.2f", rainfall);
+                    String humidity_padded = String.format("%06.2f", humidity);
+                    String rain_padded = String.format("%06.2f", rainfall);
 
                     String final_format = nr + day_padded + month_padded + year_padded + hour_padded + temp_padded
-                            + dewp_padded + rain_padded;
+                            + rain_padded + humidity_padded;
                     System.out.println(final_format);
                     socket.SendData(final_format);
                     station.Reset();
