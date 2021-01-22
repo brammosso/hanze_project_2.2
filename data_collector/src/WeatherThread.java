@@ -58,8 +58,7 @@ public class WeatherThread extends Thread {
                             break;
                         case "PRCP": // Rainfaill in centimeters, can range from 0.00 to 999.99 with 2 decimal
                             data = ExtractValue(line.substring(6));
-                            if (data.equals("") || ws.id == -128 || ws.temperature == -128 || ws.rainfall == -128) {
-                                ws.rainfall = -128;
+                            if (data.equals("") || ws.id == -128 || ws.temperature == -128 || ws.dewPoint == -128) {
                                 continue;
                             }
                             ws.rainfall = Float.parseFloat(data);
