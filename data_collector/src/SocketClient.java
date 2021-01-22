@@ -13,7 +13,7 @@ public class SocketClient {
         socket_port = PORT;
     }
 
-    private void OpenSocket(){
+    public void OpenSocket(){
         try {
             socket = new Socket(socket_host, socket_port);
             socket_out = new PrintWriter(socket.getOutputStream(), true);
@@ -22,9 +22,15 @@ public class SocketClient {
         }
     }
 
-    public void SendData(String data) throws IOException{
-        this.OpenSocket();
-        socket_out.println(data);
-        socket.close();
+    public void SendData(String data){
+            socket_out.println(data);
+    }
+
+    public void CloseSocket(){
+        try{
+            socket.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }

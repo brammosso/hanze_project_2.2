@@ -16,7 +16,7 @@ public class WeatherData extends Thread {
     private byte minute;
     private byte second;
 
-    private SocketClient socket = new SocketClient("127.0.0.1", 7790);;
+    private SocketClient socket = new SocketClient("127.0.0.1", 7790);
 
     private HashMap<Integer, WeatherStationWrapper> data;
 
@@ -41,6 +41,8 @@ public class WeatherData extends Thread {
             try {
                 // Thread.sleep(1000*(((59-minute)*60)+(60-second)));
                 Thread.sleep(2000);
+
+                socket.OpenSocket();
                 
                 Iterator stations_it = data.entrySet().iterator();
 
@@ -78,8 +80,9 @@ public class WeatherData extends Thread {
                 GetCurrentTime();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            }    
+            finally{
+                socket.CloseSocket();
             }
         }
     }
