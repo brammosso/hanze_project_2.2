@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -14,6 +15,8 @@ public class WeatherData extends Thread {
     private byte hour;
     private byte minute;
     private byte second;
+
+    private SocketClient socket = new SocketClient("127.0.0.1", 7790);;
 
     private HashMap<Integer, WeatherStationWrapper> data;
 
@@ -36,18 +39,19 @@ public class WeatherData extends Thread {
     public void run() {
         while (true) {
             try {
-                //Thread.sleep(1000*(((59-minute)*60)+(60-second)));
+                // Thread.sleep(1000*(((59-minute)*60)+(60-second)));
                 Thread.sleep(2000);
-                Iterator stations_it = data.entrySet().iterator();
                 
+                Iterator stations_it = data.entrySet().iterator();
+
                 Integer year_int = ldt.getYear() % 100;
                 Integer month_int = ldt.getMonthValue();
                 Integer day_int = ldt.getDayOfMonth();
                 Integer hour = ldt.getHour();
 
                 // loop through the hashmap containing all data
-                while(stations_it.hasNext()){
-                    Map.Entry<Integer, WeatherStationWrapper> pair = (Map.Entry)stations_it.next();
+                while (stations_it.hasNext()) {
+                    Map.Entry<Integer, WeatherStationWrapper> pair = (Map.Entry) stations_it.next();
                     WeatherStationWrapper station = pair.getValue();
 
                     // extract data from the weatherstation object
@@ -65,12 +69,16 @@ public class WeatherData extends Thread {
                     String dewp_padded = String.format("%+05.1f", dewpoint);
                     String rain_padded = String.format("%+06.2f", rainfall);
 
-                    String final_format = nr + day_padded + month_padded + year_padded + hour_padded + temp_padded + dewp_padded + rain_padded;
+                    String final_format = nr + day_padded + month_padded + year_padded + hour_padded + temp_padded
+                            + dewp_padded + rain_padded;
                     System.out.println(final_format);
+                    socket.SendData(final_format);
                     station.Reset();
                 }
                 GetCurrentTime();
             } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
