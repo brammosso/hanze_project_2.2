@@ -29,8 +29,8 @@ public class DataHandlerServer {
                 String line = null;
                 while ((line = in.readLine()) != null) {
                     System.out.println(line);
-                    DataHandlerThread dht = new DataHandlerThread(line);
-                    dht.start();
+                    /*DataHandlerThread dht = new DataHandlerThread(line);
+                    dht.start();*/
                 }
 
             } catch (IOException e) {
