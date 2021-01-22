@@ -16,14 +16,23 @@ $correct_password = "leenfiets123";
 <!DOCTYPE html>
 <html>
 	<head>
-
+        <meta charset="utf-8">
+        <title>Osaka Univsersity Login</title>
+        <link rel="stylesheet" type="text/css" href="styles_login.css">
 	<head>
 	<body>
-		<form method="post" id="LoginForm">
-		    <input name="username" id="username" placeholder="Username"> <br />
-		    <input type="password" name="password" id="password" placeholder="Password"> <br />
-		    <input type="submit" name="login" value="Login">
-		</form>
+        <div class="login_div">
+            <div class="logo"></div>
+            <div class="title">Osaka University</div>
+            <div class="sub-title">Dashboard</div>
+            <form method="post">
+                <div class="input-form">
+		            <input name="username" id="username" placeholder="Username"> <br />
+		            <input type="password" name="password" id="password" placeholder="Password"> <br />
+                </div>
+                    <input class="signin-button" type="submit" name="login" value="Login">
+		    </form>
+        </div>
 	</body>
 </html>
 <?php

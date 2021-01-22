@@ -234,7 +234,7 @@ label[for=toggle] span{
 }
 
 /* resizing screen */
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 1300px) {
 
     .grid {
         display: grid;
