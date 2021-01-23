@@ -1,9 +1,11 @@
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.lang.Math;
 
 public class WeatherData extends Thread {
 
@@ -42,36 +44,52 @@ public class WeatherData extends Thread {
             try {
                 // Thread.sleep(1000*(((59-minute)*60)+(60-second)));
                 Thread.sleep(2000);
+                try {
+                    socket.OpenSocket();
+                    Iterator stations_it = data.entrySet().iterator();
 
-                socket.OpenSocket();
-                
-                Iterator stations_it = new HashMap<Integer, WeatherStationWrapper>(data).entrySet().iterator();
+                    // loop through the hashmap containing all data
+                    while (stations_it.hasNext()) {
+                        Map.Entry<Integer, WeatherStationWrapper> pair = (Map.Entry) stations_it.next();
+                        WeatherStationWrapper station = pair.getValue();
 
-                // loop through the hashmap containing all data
-                while (stations_it.hasNext()) {
-                    Map.Entry<Integer, WeatherStationWrapper> pair = (Map.Entry) stations_it.next();
-                    WeatherStationWrapper station = pair.getValue();
+                        // extract data from the weatherstation object
+                        String nr = String.format("%06d", pair.getKey());
+                        Float temperature = station.weatherStation.temperature;
+                        Float dewpoint = station.weatherStation.dewPoint;
+                        Float rainfall = station.weatherStation.rainfall;
 
-                    // extract data from the weatherstation object
-                    String nr = String.format("%06d", pair.getKey());
-                    Float temperature = station.weatherStation.temperature;
-                    Float dewpoint = station.weatherStation.dewPoint;
-                    Float rainfall = station.weatherStation.rainfall;
+                        // calculate the humidity with the temperature and dewpoint
+                        // first calculate value A
+                        // A = (17.625 * temperature) / (243.03 + temperature)
+                        Double A = (17.625 * temperature) / (243.03 + temperature);
 
-                    String day_padded = String.format("%02d", day);
-                    String month_padded = String.format("%02d", month);
-                    String year_padded = String.format("%02d", year);
-                    String hour_padded = String.format("%02d", hour);
+                        // calculate value B
+                        // uses the same formula, but with the dewpoint instead
+                        // E = (17.625 * dewpoint) / (243.03 + dewpoint)
+                        Double B = (17.625 * dewpoint) / (243.03 + dewpoint);
 
-                    String temp_padded = String.format("%+05.1f", temperature);
-                    String dewp_padded = String.format("%+05.1f", dewpoint);
-                    String rain_padded = String.format("%+06.2f", rainfall);
+                        // calculate the relative humidity with both values
+                        // Rh = (e^B) / (e^A) * 100
+                        Double humidity = (Math.exp(B) / Math.exp(A)) * 100;
 
-                    String final_format = nr + day_padded + month_padded + year_padded + hour_padded + temp_padded
-                            + dewp_padded + rain_padded;
-                    System.out.println(final_format);
-                    socket.SendData(final_format);
-                    station.Reset();
+                        String day_padded = String.format("%02d", day);
+                        String month_padded = String.format("%02d", month);
+                        String year_padded = String.format("%02d", year);
+                        String hour_padded = String.format("%02d", hour);
+
+                        String temp_padded = String.format("%+05.1f", temperature);
+                        String humidity_padded = String.format("%06.2f", humidity);
+                        String rain_padded = String.format("%06.2f", rainfall);
+
+                        String final_format =  year_padded + month_padded + day_padded + hour_padded + nr + temp_padded + humidity_padded + rain_padded;
+                        System.out.println(final_format);
+                        socket.SendData(final_format);
+                        station.Reset();
+                    }
+                }
+                catch (ConcurrentModificationException e) {
+                    e.printStackTrace();
                 }
                 GetCurrentTime();
             } catch (InterruptedException e) {
