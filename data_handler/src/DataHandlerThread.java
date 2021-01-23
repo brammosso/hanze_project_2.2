@@ -1,32 +1,28 @@
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class DataHandlerThread extends Thread {
 
     private Thread thread = null;
+    private DataHandlerServer dhs;
     private String data = null;
 
-    public DataHandlerThread(String data) {
+    public DataHandlerThread(DataHandlerServer dhs, String data) {
+        this.dhs = dhs;
         this.data = data;
     }
 
     public void run() {
-        try {
-            // TODO: Change this to write the data correctly to the correct file
-            Files.createDirectories(Paths.get("/data/datum"));
-            File testFile = new File("/data/datum/id.txt");
-            FileOutputStream oFile = new FileOutputStream(testFile, true);
-            oFile.write(data.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String year = data.substring(0, 2);
+        String month = data.substring(2, 4);
+        String day = data.substring(4, 6);
+        String hour = data.substring(6, 8);
+        String nr = data.substring(8, 14);
+        String temperature = data.substring(14, 19);
+        String humidity = data.substring(19, 25);
+        String rainfall = data.substring(25, 31);
+        dhs.WriteData(year, month, day, hour, nr, temperature, humidity, rainfall);
     }
 
     public void start() {
-        System.out.println("Thread starting");
         if (thread == null) {
             thread = new Thread(this);
             thread.start();

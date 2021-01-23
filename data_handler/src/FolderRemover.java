@@ -1,7 +1,5 @@
 import java.io.File;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 public class FolderRemover extends Thread {
@@ -11,7 +9,8 @@ public class FolderRemover extends Thread {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(1000*60*60*24); // Wait 24 hours
+                //Thread.sleep(1000*60*60*24); // Wait 24 hours
+                Thread.sleep(5000); // Wait 24 hours
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -20,8 +19,8 @@ public class FolderRemover extends Thread {
             File[] directories = new File("/data/").listFiles(File::isDirectory);
             for (File d : directories) {
                 LocalDate directoryData = LocalDate.parse(d.getName());
-                // Check if a folder is older then 28 days (4 weeks) and if so delete it
-                if (ChronoUnit.DAYS.between(directoryData, ld) > 28) {
+                // Check if a folder is older then 3 days, then delete it
+                if (ChronoUnit.DAYS.between(directoryData, ld) > 3) {
                     deleteDir(d);
                 }
             }
@@ -44,5 +43,4 @@ public class FolderRemover extends Thread {
         }
         file.delete();
     }
-
 }

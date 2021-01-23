@@ -12,7 +12,7 @@ public class DataCollector {
         weatherData = new WeatherData();
         weatherData.start();
         // Create the serversocket
-        System.out.println("Waiting for clients");
+        System.out.println("Data collector started");
         ss = null;
         try {
             ss = new ServerSocket(port);
@@ -27,7 +27,6 @@ public class DataCollector {
             try {
                 // Wait for a connection
                 Socket soc = ss.accept();
-                System.out.println("Client connected");
                 // Create a new weatherstation and add the socket as a parameter
                 WeatherThread wt = new WeatherThread(soc, weatherData);
                 wt.start();

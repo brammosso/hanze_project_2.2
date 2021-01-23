@@ -31,7 +31,6 @@ public class WeatherData extends Thread {
     }
 
     public void start() {
-        System.out.println("Thread starting");
         if (thread == null) {
             thread = new Thread(this);
             thread.start();
@@ -42,7 +41,7 @@ public class WeatherData extends Thread {
         GetCurrentTime();
         while (true) {
             try {
-                // Thread.sleep(1000*(((59-minute)*60)+(60-second)));
+                Thread.sleep(1000*(((59-minute)*60)+(60-second)));
                 Thread.sleep(2000);
                 try {
                     socket.OpenSocket();
@@ -83,7 +82,7 @@ public class WeatherData extends Thread {
                         String rain_padded = String.format("%06.2f", rainfall);
 
                         String final_format =  year_padded + month_padded + day_padded + hour_padded + nr + temp_padded + humidity_padded + rain_padded;
-                        System.out.println(final_format);
+                        //System.out.println(final_format);
                         socket.SendData(final_format);
                         station.Reset();
                     }
@@ -118,11 +117,5 @@ public class WeatherData extends Thread {
         hour = ldt.getHour();
         minute = ldt.getMinute();
         second = ldt.getSecond();
-        /*System.out.println("Year: " + year);
-        System.out.println("month: " + month);
-        System.out.println("day: " + day);
-        System.out.println("hour: " + hour);
-        System.out.println("minute: " + minute);
-        System.out.println("second: " + second);*/
     }
 }
