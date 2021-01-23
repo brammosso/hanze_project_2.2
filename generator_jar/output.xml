@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!-- Het weatherdata-element bevat meerdere measurement-elementen -->
+<WEATHERDATA>
+	<!-- Het measurement-element bevat de meetgegevens van een weerstation -->
+	<MEASUREMENT>
+		<!-- Het station waarvan deze gegevens zijn -->
+		<STN>123456</STN>
+		
+		<!-- Datum van versturen van deze gegevens, formaat: yyyy-mm-dd -->
+		<DATE>2009-09-13</DATE>
+		
+		<!-- Tijd van versturen van deze gegevens, formaat: hh:mm:ss -->
+		<TIME>15:59:46</TIME>
+		
+		<!-- Temperatuur in graden Celsius, geldige waardes van -9999.9 t/m 9999.9 met 1 decimaal -->
+		<TEMP>-60.1</TEMP>
+		
+		<!-- Dauwpunt in graden Celsius, geldige waardes van -9999.9 t/m 9999.9 met 1 decimaal -->
+		<DEWP>-58.1</DEWP>
+		
+		<!-- Luchtdruk op stationsniveau in millibar, geldige waardes van 0.0 t/m 9999.9 met 1 decimaal -->
+		<STP>1034.5</STP>
+		
+		<!-- Luchtdruk op zeeniveau in millibar, geldige waardes van 0.0 t/m 9999.9 met 1 decimaal -->
+		<SLP>1007.6</SLP>
+		
+		<!-- Zichtbaarheid in kilometers, geldige waardes van 0.0 t/m 999.9 met 1 decimaal -->
+		<VISIB>123.7</VISIB>
+		
+		<!-- Windsnelheid in kilometers per uur, geldige waardes van 0.0 t/m 999.9 met 1 decimaal -->
+		<WDSP>10.8</WDSP>
+		
+		<!-- Neerslag in centimeters, geldige waardes van 0.00 t/m 999.99 met 2 decimalen -->
+		<PRCP>11.28</PRCP>
+		
+		<!-- Gevallen sneeuw in centimeters, geldige waardes van -9999.9 t/m 9999.9 met 1 decimaal -->
+		<SNDP>11.1</SNDP>
+		
+		<!--
+		Gebeurtenissen op deze dag, cummulatief, binair uitgedrukt.
+		Opeenvolgend, van meest- naar minst significant:
+		Vriezen, geeft aan of het gevroren heeft
+		Regen, geeft aan of het geregend heeft.
+		Sneeuw, geeft aan of het gesneeuwd heeft.
+		Hagel, geeft aan of het gehageld heeft.
+		Onweer, geeft aan of er onweer is geweest.
+		Tornado/windhoos, geeft aan of er een tornado of windhoos geweest is.
+		-->
+		<FRSHTT>010101</FRSHTT>
+		
+		<!-- Bewolking in procenten, geldige waardes van 0.0 t/m 99.9 met 1 decimaal -->
+		<CLDC>87.4</CLDC>
+		
+		<!-- Windrichting in graden, geldige waardes van 0 t/m 359 alleen gehele getallen -->
+		<WNDDIR>342</WNDDIR>
+	</MEASUREMENT>
+</WEATHERDATA>
