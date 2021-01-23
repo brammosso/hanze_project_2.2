@@ -9,12 +9,12 @@ public class WeatherData extends Thread {
 
     private DateTimeFormatter dtf;
     private LocalDateTime ldt;
-    private byte year;
-    private byte month;
-    private byte day;
-    private byte hour;
-    private byte minute;
-    private byte second;
+    private int year;
+    private int month;
+    private int day;
+    private int hour;
+    private int minute;
+    private int second;
 
     private SocketClient socket = new SocketClient("127.0.0.1", 7790);
 
@@ -37,6 +37,7 @@ public class WeatherData extends Thread {
     }
 
     public void run() {
+        GetCurrentTime();
         while (true) {
             try {
                 // Thread.sleep(1000*(((59-minute)*60)+(60-second)));
@@ -45,11 +46,6 @@ public class WeatherData extends Thread {
                 socket.OpenSocket();
                 
                 Iterator stations_it = new HashMap<Integer, WeatherStationWrapper>(data).entrySet().iterator();
-
-                Integer year_int = ldt.getYear() % 100;
-                Integer month_int = ldt.getMonthValue();
-                Integer day_int = ldt.getDayOfMonth();
-                Integer hour = ldt.getHour();
 
                 // loop through the hashmap containing all data
                 while (stations_it.hasNext()) {
@@ -62,9 +58,9 @@ public class WeatherData extends Thread {
                     Float dewpoint = station.weatherStation.dewPoint;
                     Float rainfall = station.weatherStation.rainfall;
 
-                    String day_padded = String.format("%02d", day_int);
-                    String month_padded = String.format("%02d", month_int);
-                    String year_padded = String.format("%02d", year_int);
+                    String day_padded = String.format("%02d", day);
+                    String month_padded = String.format("%02d", month);
+                    String year_padded = String.format("%02d", year);
                     String hour_padded = String.format("%02d", hour);
 
                     String temp_padded = String.format("%+05.1f", temperature);
@@ -98,12 +94,12 @@ public class WeatherData extends Thread {
 
     private void GetCurrentTime() {
         ldt = LocalDateTime.now();
-        year = Byte.parseByte(Integer.toString(ldt.getYear()).substring(2, 4));
-        month = Byte.parseByte(Integer.toString(ldt.getMonthValue()));
-        day = Byte.parseByte(Integer.toString(ldt.getDayOfMonth()));
-        hour = Byte.parseByte(Integer.toString(ldt.getHour()));
-        minute = Byte.parseByte(Integer.toString(ldt.getMinute()));
-        second = Byte.parseByte(Integer.toString(ldt.getSecond()));
+        year = ldt.getYear() % 100;
+        month = ldt.getMonthValue();
+        day = ldt.getDayOfMonth();
+        hour = ldt.getHour();
+        minute = ldt.getMinute();
+        second = ldt.getSecond();
         /*System.out.println("Year: " + year);
         System.out.println("month: " + month);
         System.out.println("day: " + day);
