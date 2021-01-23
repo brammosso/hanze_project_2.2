@@ -44,7 +44,7 @@ public class WeatherData extends Thread {
 
                 socket.OpenSocket();
                 
-                Iterator stations_it = data.entrySet().iterator();
+                Iterator stations_it = new HashMap<Integer, WeatherStationWrapper>(data).entrySet().iterator();
 
                 Integer year_int = ldt.getYear() % 100;
                 Integer month_int = ldt.getMonthValue();
