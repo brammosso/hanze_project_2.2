@@ -33,29 +33,29 @@ $correct_password = "leenfiets123";
                     <input class="signin-button" type="submit" name="login" value="Login">
 		    </form>
         </div>
+        <?php
+        // Checking if the login form has been submitted.
+        if(isset($_POST['login'])){
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            // Checking if all the fields have been filled in.
+            $fields = array('username', 'password');
+            $missing_field = false;
+            foreach ($fields as $fieldname) {
+                if (!isset($_POST[$fieldname]) || empty($_POST[$fieldname])) {
+                    $error = true;
+                }
+            }
+            // Checking the username and passwords are correct
+            if ($correct_username == $username && $correct_password == $password) {
+                // If the login is succesfull we start a session
+                $_SESSION["logged_in"] = true;
+                header('Location: index.php');
+            } else {
+                echo "<div class='error'>fout</div>";
+            }
+        }
+        ?>
 	</body>
 </html>
-<?php
-// Checking if the login form has been submitted.
-if(isset($_POST['login'])){
-	$username = $_POST['username'];
-	$password = $_POST['password'];
-	// Checking if all the fields have been filled in.
-	$fields = array('username', 'password');
-	$missing_field = false;
-	foreach ($fields as $fieldname) {
-        if (!isset($_POST[$fieldname]) || empty($_POST[$fieldname])) {
-            echo $fieldname . " has not been filled in.<br />";
-            $error = true;
-        }
-    }
-	// Checking the username and passwords are correct
-	if ($correct_username == $username && $correct_password == $password) {
-		// If the login is succesfull we start a session
-		$_SESSION["logged_in"] = true;
-		header('Location: index.php');
-	} else {
-		echo "Username or password is incorrect.";
-	}
-}
-?>
+
