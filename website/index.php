@@ -61,7 +61,7 @@ if (!isset($_SESSION["logged_in"])) {
 
         function initMap() {
             var mapOptions = {
-                zoom: 10,
+                zoom: 5,
                 center: { lat: 53.1424984, lng: 7.0367877 },
                 streetViewControl: false,
             }
@@ -73,34 +73,33 @@ if (!isset($_SESSION["logged_in"])) {
             xmlhttp.onreadystatechange = function() {
                 var myObj = JSON.parse(this.responseText);
                 i = 0;
-                while (i < myObj.weatherstations.length){
+                while (i < myObj.length){
                     const locatie = new google.maps.Marker({
-                        position: { lat: myObj.weatherstations[i].latitude, lng: myObj.weatherstations[i].longitude },
-                        id: myObj.weatherstations[i].stn,
-                        name: myObj.weatherstations[i].name,
-                        country: myObj.weatherstations[i].country,
+                        position: { lat: myObj[i][3], lng: myObj[i][4] },
+                        id: myObj[i][0],
+                        name: myObj[i][1],
+                        country: myObj[i][2],
                         map: map,
-                        title: myObj.weatherstations[i].name + " - " + myObj.weatherstations[i].country,
+                        title: myObj[i][1] + " - " + myObj[i][2],
                     });
                     locatie.addListener("click", function () {giveID(locatie, "")});
 
                     const locatie2 = new google.maps.Marker({
-                        position: { lat: myObj.weatherstations[i].latitude, lng: myObj.weatherstations[i].longitude },
-                        id: myObj.weatherstations[i].stn,
-                        name: myObj.weatherstations[i].name,
-                        country: myObj.weatherstations[i].country,
+                        position: { lat: myObj[i][3], lng: myObj[i][4] },
+                        id: myObj[i][0],
+                        name: myObj[i][1],
+                        country: myObj[i][2],
                         map: map2,
-                        title: myObj.weatherstations[i].name + " - " + myObj.weatherstations[i].country,
+                        title: myObj[i][1] + " - " + myObj[i][2],
                     });
                     locatie2.addListener("click", function () {giveID(locatie2, 2)});
                     i++;
                 }
             };
-            xmlhttp.open("GET", "data.json", true);
+            xmlhttp.open("GET", "fetch_data/valid_stations.php", true);
             xmlhttp.send();
 
             function giveID(station, map) {
-                document.getElementById("selected"+map).innerHTML = station.id;
                 if (map == 2){
                     daysBackRight = 0;
                     data2.removeColumn(1);
@@ -292,15 +291,102 @@ if (!isset($_SESSION["logged_in"])) {
         <div class="grid">
             <div class="top10">
                 <h1>Top 10 humidity &nbsp <i class="fas fa-tint" style="font-size: 28px"></i></h1>
-                "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+                <table>
+                    <tr>
+                        <th>Top</th>
+                        <th>Nr</th>
+                        <th>Name</th>
+                        <th>Country</th>
+                        <th>Humidity</th>
+                        <th>Datum</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>62800</td>
+                        <td>Groningen AP Eelde</td>
+                        <td>Netherlands</td>
+                        <td>90%</td>
+                        <td>26-01-2021</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>62700</td>
+                        <td>Leeuwarden</td>
+                        <td>Netherlands</td>
+                        <td>80%</td>
+                        <td>26-01-2021</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>10260</td>
+                        <td>TROMSO/LANGNES</td>
+                        <td>NORWAY</td>
+                        <td>70%</td>
+                        <td>26-01-2021</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>22820</td>
+                        <td>PETISTRASK</td>
+                        <td>SWEDEN</td>
+                        <td>60%</td>
+                        <td>26-01-2021</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>100330</td>
+                        <td>GLUECKSBURG/MEIERWI</td>
+                        <td>GERMANY</td>
+                        <td>50%</td>
+                        <td>26-01-2021</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>995930</td>
+                        <td>ENVIRONM BUOY 62104</td>
+                        <td>UNITED KINGDOM</td>
+                        <td>40%</td>
+                        <td>26-01-2021</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>160610</td>
+                        <td>TORINO/BRIC DELLA C</td>
+                        <td>ITALY</td>
+                        <td>30%</td>
+                        <td>26-01-2021</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>143140</td>
+                        <td>MALI LOSINJ</td>
+                        <td>CROATIA</td>
+                        <td>20%</td>
+                        <td>26-01-2021</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>130240</td>
+                        <td>LISCA</td>
+                        <td>SLOVENIA</td>
+                        <td>10%</td>
+                        <td>26-01-2021</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>75490</td>
+                        <td>AURILLAC</td>
+                        <td>FRANCE</td>
+                        <td>5%</td>
+                        <td>26-01-2021</td>
+                    </tr>
+                </table>
             </div>
             <div class="weatherinfo">
                 <h1>Weather info table &nbsp <i class="fas fa-table" style="font-size: 28px"></i></h1>
-                "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
             </div>
             <div class="gl">
                 <h1>Graph LO &nbsp <i class="fas fa-chart-line" style="font-size: 28px"></i></h1>
-                <p id="selected"></p>
                 <div id="map"></div>
                 <div  id="line_top_x" style="width:100%"></div>
                 <button style="margin: 1em 1em 1em 2em" onclick="chartLeftBack();"><--</button>
@@ -308,7 +394,6 @@ if (!isset($_SESSION["logged_in"])) {
             </div>
             <div class="gr">
                 <h1>Graph RO &nbsp <i class="fas fa-chart-line" style="font-size: 28px"></i></h1>
-                <p id="selected2"></p>
                 <div id="map2"></div>
                 <div  id="line_top_x2" style="width:100%"></div>
                 <button style="margin: 1em 1em 1em 2em" onclick="chartRightBack();"><--</button>

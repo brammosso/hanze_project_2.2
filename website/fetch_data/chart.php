@@ -2,8 +2,6 @@
 $data = array();
 $station = $_GET['station'];
 $back = $_GET['back'];
-
-
 $date = substr(date("d_m_Y",strtotime("-{$back} day")),0,6);
 $date.= substr(date("d_m_Y",strtotime("-{$back} day")),8,2);
 
@@ -27,8 +25,4 @@ if ( file_exists($filepath) ) {
     fclose($file);
     echo json_encode($data);
 }
-else{
-
-}
-
 ?>
