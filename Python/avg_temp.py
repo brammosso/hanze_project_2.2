@@ -49,7 +49,6 @@ def removeOld():
         year = "20" + lines[4:6]
         if (today - date(int(year), int(month), int(day))).days <= 2:
             saveLines.append(lines)
-            print("safe")
     # Clear the file
     averageFile.seek(0)
     averageFile.truncate()
