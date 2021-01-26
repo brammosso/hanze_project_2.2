@@ -42,8 +42,8 @@ public class WeatherData extends Thread {
         GetCurrentTime();
         while (true) {
             try {
-                //Thread.sleep(1000*(((59-minute)*60)+(60-second)));
-                Thread.sleep(60000);
+                Thread.sleep(1000*(((59-minute)*60)+(60-second)));
+                //Thread.sleep(60000);
                 try {
                     socket.OpenSocket();
                     Iterator stations_it = data.entrySet().iterator();
