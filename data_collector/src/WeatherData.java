@@ -18,13 +18,14 @@ public class WeatherData extends Thread {
     private int minute;
     private int second;
 
-    private SocketClient socket = new SocketClient("127.0.0.1", 7790);
+    private SocketClient socket;
 
     private HashMap<Integer, WeatherStationWrapper> data;
 
     private Thread thread = null;
 
-    public WeatherData() {
+    public WeatherData(String host) {
+        socket = new SocketClient(host, 7790);
         data = new HashMap<Integer, WeatherStationWrapper>();
         dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         GetCurrentTime();
@@ -41,8 +42,8 @@ public class WeatherData extends Thread {
         GetCurrentTime();
         while (true) {
             try {
-                Thread.sleep(1000*(((59-minute)*60)+(60-second)));
-                Thread.sleep(2000);
+                //Thread.sleep(1000*(((59-minute)*60)+(60-second)));
+                Thread.sleep(60000);
                 try {
                     socket.OpenSocket();
                     Iterator stations_it = data.entrySet().iterator();

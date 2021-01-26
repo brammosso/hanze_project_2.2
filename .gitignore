@@ -3,3 +3,6 @@ out/
 *.iml
 META-INF/
 *.log
+*.txt
+.vscode
+.jar

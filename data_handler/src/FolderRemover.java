@@ -16,7 +16,7 @@ public class FolderRemover extends Thread {
             }
             LocalDate ld = LocalDate.now();
             // Remove all folders older then 4 weeks
-            File[] directories = new File("/data/").listFiles(File::isDirectory);
+            File[] directories = new File("./data/").listFiles(File::isDirectory);
             for (File d : directories) {
                 LocalDate directoryData = LocalDate.parse(d.getName());
                 // Check if a folder is older then 3 days, then delete it

@@ -23,6 +23,7 @@ public class DataHandlerServer {
         fr.start();
         try {
             ss = new ServerSocket(port);
+            System.out.println("[+] Succesfully created socket object");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -32,7 +33,7 @@ public class DataHandlerServer {
         while (true) {
             try {
                 Socket soc = ss.accept();
-                //System.out.println("Connection established");
+                System.out.println("[+] Connection created");
                 BufferedReader in = new BufferedReader(new InputStreamReader(soc.getInputStream()));
                 String line = null;
                 while ((line = in.readLine()) != null) {
@@ -40,6 +41,7 @@ public class DataHandlerServer {
                     DataHandlerThread dht = new DataHandlerThread(this, line);
                     dht.start();
                 }
+                System.out.println("[+] Data written succesfully");
 
             } catch (IOException e) {
                 e.printStackTrace();

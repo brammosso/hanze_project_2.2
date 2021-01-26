@@ -9,8 +9,13 @@ public class Temperature {
     private FileOutputStream oFile;
 
     public Temperature() {
+        File directory = new File("./data/");
+        if (! directory.exists()){
+            directory.mkdir();
+        }
+
         try {
-            file = new File("/data/temperatures.txt");
+            file = new File("./data/temperatures.txt");
             oFile = new FileOutputStream(file, true);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

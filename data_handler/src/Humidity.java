@@ -9,12 +9,18 @@ public class Humidity {
     private FileOutputStream oFile;
 
     public Humidity() {
+        File directory = new File("./data/");
+        if (! directory.exists()){
+            directory.mkdir();
+        }
+
         try {
-            file = new File("/data/humidity.txt");
+            file = new File("./data/humidity.txt");
             oFile = new FileOutputStream(file, true);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
     }
 
     public void Write(String hour, String day, String month, String year, String nr, String humidity) {
