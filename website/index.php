@@ -288,7 +288,7 @@ if (!isset($_SESSION["logged_in"])) {
 
     <!--content (wit)-->
     <div id="content">
-        <div class="grid">
+
             <div class="top10">
                 <h1>Top 10 humidity &nbsp <i class="fas fa-tint" style="font-size: 28px"></i></h1>
                 <table>
@@ -382,9 +382,8 @@ if (!isset($_SESSION["logged_in"])) {
                     </tr>
                 </table>
             </div>
-            <div class="weatherinfo">
-                <h1>Weather info table &nbsp <i class="fas fa-table" style="font-size: 28px"></i></h1>
-            </div>
+
+        <div class="grid">
             <div class="gl">
                 <h1>Graph LO &nbsp <i class="fas fa-chart-line" style="font-size: 28px"></i></h1>
                 <div id="map"></div>
