@@ -10,7 +10,7 @@ class dataParser:
         for lines in self.input_file:
             time=lines[0:2]
             date=lines[2:8]
-            stationNumber=lines[8:14]
+            stationNumber=int(lines[8:14])
             temperature=float(lines[14:19])
 
             if stationNumber not in dataDict.keys():
@@ -33,7 +33,7 @@ class dataParser:
             average = f'{data[0]/data[1]:+06.2f}'
 
             # create formatted string
-            dataformat= data[2] + station + average
+            dataformat= data[2] + f'{station:06d}' + average
 
             self.output_file.write(dataformat + '\n')
 
@@ -67,11 +67,19 @@ parser.calcAvg()
 
 
 def validStations():
+    # Filter on only countries from Europa and Japan
+    stationsEuropa = open("countries_script/stations_europa_japan.txt", "r+")
+    stations = {}
+    for lines in stationsEuropa:
+        stationId=int(lines[0:6])
+        stationInfo=lines[6:]
+        stations[stationId] = stationInfo
+
     dataDict = {}
     averageFile = open("average_temperatures.txt", "r+")
     # Place the average_temperature.txt inside of a dictionary
     for lines in averageFile:
-        stationNumber=lines[6:12]
+        stationNumber=int(lines[6:12])
         temperature=float(lines[12:])
         if stationNumber not in dataDict.keys():
             dataDict[stationNumber] = [temperature,1]
@@ -81,8 +89,10 @@ def validStations():
     # Write all station numbers to valid_stations.txt that are under 13.9 degrees Celsius
     validStationFile = open("valid_stations.txt", "w+")
     for station, data in dataDict.items():
+        if station not in stations.keys():
+            continue
         average = data[0]/data[1]
         if average < 13.9:
-            validStationFile.write("" + station + '\n')
+            validStationFile.write(f'{station:06d}' + stations[station])
 
 validStations()
