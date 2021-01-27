@@ -9,7 +9,7 @@ class dataParser:
         dataDict = {}
         for lines in self.input_file:
             timeStamp=lines[0:8]
-            stationNumber=lines[8:14]
+            stationNumber=int(lines[8:14])
             humidity=float(lines[14:])
             if stationNumber not in dataDict.keys():
                 dataDict[stationNumber] = [(humidity,timeStamp)]
@@ -29,7 +29,7 @@ class dataParser:
             for d in data:
                 if d[0] > peakValue[0]:
                     peakValue = d
-            dataformat = peakValue[1] + str(station) + f'{peakValue[0]:06.2f}' + "\n"
+            dataformat = peakValue[1] + f'{station:06d}{peakValue[0]:06.02f}' + "\n"
             self.output_file.write(dataformat)
             
 
@@ -63,14 +63,25 @@ parser.calcPeakValue()
 
 
 def createTop10():
+    stationsEuropa = open("countries_script/stations_europa.txt", "r+")
+    stations = {}
+    for lines in stationsEuropa:
+        stationId=int(lines[0:6])
+        stationInfo=lines[6:]
+        stations[stationId] = stationInfo
+    
     humidityPeakValuesFile = open("humidity_peak_values.txt", "r+")
     top10 = []
     for lines in humidityPeakValuesFile:
+        # Check if the station is in Europa
+        stationId=int(lines[8:14])
+        if stationId not in stations.keys():
+            continue
         data=lines[0:14]
         humidity=float(lines[14:])
         # Get the first 10 values from the humidity_peak_values.txt file and sort them
         if len(top10) < 10:
-            top10.append((data, humidity))
+            top10.append((data, humidity, stationId))
             top10.sort(key=lambda tup: tup[1])
             continue
         # Check if the current value is greather then any of the top10 values and replace them
@@ -79,11 +90,11 @@ def createTop10():
             if humidity > top10[index][1]:
                 i = index
         if i != -1:
-            top10[i] = (data, humidity)
+            top10[i] = (data, humidity, stationId)
 
     # Write the top10 to the humidity_top10.txt
     humidityTop10File = open("humidity_top10.txt", "w+")
     for data in top10:
-        humidityTop10File.write(data[0] + f'{data[1]:06.2f}' + '\n')
+        humidityTop10File.write(data[0] + f'{data[1]:06.02f}' + stations[data[2]])
 
 createTop10()
