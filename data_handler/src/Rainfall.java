@@ -12,7 +12,7 @@ public class Rainfall {
 
     public void Write(String hour, String day, String month, String year, String nr, String rainfall) {
         try {
-            String dir = ("./data/20" + year + "-" + month + "-" + day);
+            String dir = ("./data/rainfall/20" + year + "-" + month + "-" + day);
             Files.createDirectories(Paths.get(dir));
             File file = new File((dir + "/" + nr + ".txt"));
             FileOutputStream oFile = new FileOutputStream(file, true);
