@@ -9,8 +9,8 @@ public class FolderRemover extends Thread {
     public void run() {
         while (true) {
             try {
-                //Thread.sleep(1000*60*60*24); // Wait 24 hours
-                Thread.sleep(5000); // Wait 24 hours
+                Thread.sleep(1000*60*60*24); // Wait 24 hours
+                //Thread.sleep(5000); // Wait 24 hours
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
