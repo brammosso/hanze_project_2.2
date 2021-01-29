@@ -27,8 +27,40 @@ if (!isset($_SESSION["logged_in"])) {
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
 
     <script type="text/javascript">
-        google.charts.load('current', {'packages':['line']});
+        google.charts.load(1.1, {'packages':['line']});
         google.charts.setOnLoadCallback(drawChart);
+
+        function myFunction() {
+            var table = document.getElementById("myTable");
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    i = 0;
+                    while (i < myObj.length){
+                        var row = table.insertRow(1);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+                        var cell4 = row.insertCell(3);
+                        var cell5 = row.insertCell(4);
+                        var cell6 = row.insertCell(5);
+                        var cell7 = row.insertCell(6);
+                        cell1.innerHTML = 10 - i;
+                        cell2.innerHTML = myObj[i][2];
+                        cell3.innerHTML = myObj[i][4];
+                        cell4.innerHTML = myObj[i][5];
+                        cell5.innerHTML = myObj[i][3] + "%";
+                        cell6.innerHTML = myObj[i][1];
+                        cell7.innerHTML = myObj[i][0] + ":00";
+                        i++;
+                    }
+                }
+            };
+            xmlhttp.open("GET", "fetch_data/top10.php", true);
+            xmlhttp.send();
+
+        }
 
         function drawChart() {
 
@@ -271,7 +303,7 @@ if (!isset($_SESSION["logged_in"])) {
 
     </script>
 </head>
-<body>
+<body onload="myFunction()">
 <div id="wrapper">
     <!--knop voor menu button-->
     <input type="checkbox" id="toggle">
@@ -291,94 +323,15 @@ if (!isset($_SESSION["logged_in"])) {
 
             <div class="top10">
                 <h1>Top 10 humidity &nbsp <i class="fas fa-tint" style="font-size: 28px"></i></h1>
-                <table>
+                <table id="myTable">
                     <tr>
                         <th>Top</th>
                         <th>Nr</th>
                         <th>Name</th>
                         <th>Country</th>
                         <th>Humidity</th>
-                        <th>Datum</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>62800</td>
-                        <td>Groningen AP Eelde</td>
-                        <td>Netherlands</td>
-                        <td>90%</td>
-                        <td>26-01-2021</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>62700</td>
-                        <td>Leeuwarden</td>
-                        <td>Netherlands</td>
-                        <td>80%</td>
-                        <td>26-01-2021</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>10260</td>
-                        <td>TROMSO/LANGNES</td>
-                        <td>NORWAY</td>
-                        <td>70%</td>
-                        <td>26-01-2021</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>22820</td>
-                        <td>PETISTRASK</td>
-                        <td>SWEDEN</td>
-                        <td>60%</td>
-                        <td>26-01-2021</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>100330</td>
-                        <td>GLUECKSBURG/MEIERWI</td>
-                        <td>GERMANY</td>
-                        <td>50%</td>
-                        <td>26-01-2021</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>995930</td>
-                        <td>ENVIRONM BUOY 62104</td>
-                        <td>UNITED KINGDOM</td>
-                        <td>40%</td>
-                        <td>26-01-2021</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>160610</td>
-                        <td>TORINO/BRIC DELLA C</td>
-                        <td>ITALY</td>
-                        <td>30%</td>
-                        <td>26-01-2021</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>143140</td>
-                        <td>MALI LOSINJ</td>
-                        <td>CROATIA</td>
-                        <td>20%</td>
-                        <td>26-01-2021</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>130240</td>
-                        <td>LISCA</td>
-                        <td>SLOVENIA</td>
-                        <td>10%</td>
-                        <td>26-01-2021</td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>75490</td>
-                        <td>AURILLAC</td>
-                        <td>FRANCE</td>
-                        <td>5%</td>
-                        <td>26-01-2021</td>
+                        <th>Date</th>
+                        <th>Time</th>
                     </tr>
                 </table>
             </div>

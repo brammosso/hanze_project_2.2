@@ -1,4 +1,16 @@
 <?php
+// Starting a session if one has not yet been established
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+// Checking if the logged_in session variable exists, this is created after logging in
+if (!isset($_SESSION["logged_in"])) {
+    header('Location: ../login.php');
+}
+
+
+
 $stations = array();
 
 $filepath="../testdata/valid_stations.txt";
@@ -7,14 +19,14 @@ $file = fopen($filepath,"r");
 while(! feof($file))
     {
         $regel = fgets($file). "<br />";
-        $data = explode(',',$regel);
+        $data = explode(';',$regel);
         $stn = (int)$data[0];
         $name = $data[1];
         $country = $data[2];
         $latitude = (double)$data[3];
         $longitude = (double)$data[4];
         //echo $longitude;
-        array_push($stations, array($stn,$name,$country,$latitude,$longitude));
+        array_push($stations, array($stn,$name,$country,$longitude, $latitude));
     }
 
     fclose($file);

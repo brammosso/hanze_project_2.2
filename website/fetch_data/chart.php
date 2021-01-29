@@ -1,15 +1,24 @@
 <?php
-$data = array();
-$station = $_GET['station'];
-$back = $_GET['back'];
-$date = substr(date("d_m_Y",strtotime("-{$back} day")),0,6);
-$date.= substr(date("d_m_Y",strtotime("-{$back} day")),8,2);
 
-$filepath="../testdata/";
+// Starting a session if one has not yet been established
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+// Checking if the logged_in session variable exists, this is created after logging in
+if (!isset($_SESSION["logged_in"])) {
+    header('Location: ../login.php');
+}
+$data = array();
+$station = sprintf("%06d", $_GET['station']);
+$back = $_GET['back'];
+$date = date("Y-m-d",strtotime("-{$back} day"));
+
+$filepath="../testdata/rainfall/";
 $filepath.= $date;
 $filepath.= "/";
 $filepath.=$station;
-$filepath.="/data.txt";
+$filepath.=".txt";
 
 if ( file_exists($filepath) ) {
     $file = fopen($filepath,"r");
@@ -17,9 +26,11 @@ if ( file_exists($filepath) ) {
     while(! feof($file))
     {
         $stringfrom = fgets($file). "<br />";
-        $tijd = (int)substr($stringfrom,0,2);
-        $neerslag = (int)substr($stringfrom,10,4);
-        array_push($data, array($tijd,$neerslag));
+        if (strlen($stringfrom > 0)){
+            $tijd = (int)substr($stringfrom,0,2);
+            $neerslag = (int)((double)substr($stringfrom,2,6)*100);
+            array_push($data, array($tijd,$neerslag));
+        }
     }
 
     fclose($file);
