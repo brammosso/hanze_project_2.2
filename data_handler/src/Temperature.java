@@ -16,7 +16,7 @@ public class Temperature {
 
         try {
             file = new File("./data/temperatures.txt");
-            oFile = new FileOutputStream(file, true);
+            this.oFile = new FileOutputStream(file, true);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -24,7 +24,7 @@ public class Temperature {
 
     public void Write(String hour, String day, String month, String year, String nr, String temperature) {
         try {
-            oFile.write((hour+day+month+year+nr+temperature+"\n").getBytes());
+            this.oFile.write((hour+day+month+year+nr+temperature+"\n").getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
