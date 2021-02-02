@@ -29,7 +29,7 @@ if ( file_exists($filepath) ) {
         if (strlen($stringfrom > 0)){
             $tijd = (int)substr($stringfrom,0,2);
             $neerslag = (int)((double)substr($stringfrom,2,6)*100);
-            array_push($data, array($tijd,$neerslag));
+            array_push($data,array("time" => $tijd, "rainfall" => $neerslag));
         }
     }
 

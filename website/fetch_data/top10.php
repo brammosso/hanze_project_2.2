@@ -31,8 +31,7 @@ while(! feof($file))
     $country = $data[2];
     $latitude = (double)$data[3];
     $longitude = (double)$data[4];
-
-    array_push($stations, array($time,$date,$stn,$humidity, $name, $country, $latitude, $longitude));
+    array_push($stations, array("time" => $time,"date" => $date, "stn" => $stn,"humidity" => $humidity, "name" => $name, "country" => $country, "latitude" => $latitude, "longitude" => $longitude));
 }}
 
 fclose($file);

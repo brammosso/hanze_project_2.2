@@ -28,7 +28,8 @@ if (!isset($_SESSION["logged_in"])) {
 
     <script type="text/javascript">
         google.charts.load(1.1, {'packages':['line']});
-        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawChart1);
+        google.charts.setOnLoadCallback(drawChart2);
 
         function myFunction() {
             var table = document.getElementById("myTable");
@@ -47,12 +48,12 @@ if (!isset($_SESSION["logged_in"])) {
                         var cell6 = row.insertCell(5);
                         var cell7 = row.insertCell(6);
                         cell1.innerHTML = 10 - i;
-                        cell2.innerHTML = myObj[i][2];
-                        cell3.innerHTML = myObj[i][4];
-                        cell4.innerHTML = myObj[i][5];
-                        cell5.innerHTML = myObj[i][3] + "%";
-                        cell6.innerHTML = myObj[i][1];
-                        cell7.innerHTML = myObj[i][0] + ":00";
+                        cell2.innerHTML = myObj[i].stn;
+                        cell3.innerHTML = myObj[i].name;
+                        cell4.innerHTML = myObj[i].country;
+                        cell5.innerHTML = myObj[i].humidity + "%";
+                        cell6.innerHTML = myObj[i].date;
+                        cell7.innerHTML = myObj[i].time + ":00";
                         i++;
                     }
                 }
@@ -62,16 +63,16 @@ if (!isset($_SESSION["logged_in"])) {
 
         }
 
-        function drawChart() {
+        function drawChart1() {
 
             data = new google.visualization.DataTable(document.getElementById('line_top_x'));
-            data2 = new google.visualization.DataTable(document.getElementById('line_top_x2'));
+
             data.addColumn('number', 'Time in hours');
-            data2.addColumn('number', 'Time in hours');
+
             data.addColumn('number', 'Weatherstation ....');
-            data2.addColumn('number', 'Weatherstation ....');
+
             data.addRows([[0,  0]]);
-            data2.addRows([[0,  0]]);
+
 
             options = {
                 chart: {
@@ -86,10 +87,44 @@ if (!isset($_SESSION["logged_in"])) {
                 }
             };
             chart = new google.charts.Line(document.getElementById('line_top_x'));
-            chart2 = new google.charts.Line(document.getElementById('line_top_x2'));
+
             chart.draw(data, google.charts.Line.convertOptions(options));
+
+        }
+
+
+        function drawChart2() {
+
+
+            data2 = new google.visualization.DataTable(document.getElementById('line_top_x2'));
+
+            data2.addColumn('number', 'Time in hours');
+
+            data2.addColumn('number', 'Weatherstation ....');
+
+            data2.addRows([[0,  0]]);
+
+            options = {
+                chart: {
+                    title: 'Rainfall',
+                    subtitle: 'Rainfall in mm',
+                },
+                height: 500,
+                axes: {
+                    x: {
+                        0: {side: 'bottom'}
+                    }
+                }
+            };
+
+            chart2 = new google.charts.Line(document.getElementById('line_top_x2'));
+
             chart2.draw(data2, google.charts.Line.convertOptions(options));
         }
+
+
+
+
 
         function initMap() {
             var mapOptions = {
@@ -103,45 +138,53 @@ if (!isset($_SESSION["logged_in"])) {
 
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
-                var myObj = JSON.parse(this.responseText);
-                i = 0;
-                while (i < myObj.length){
-                    const locatie = new google.maps.Marker({
-                        position: { lat: myObj[i][3], lng: myObj[i][4] },
-                        id: myObj[i][0],
-                        name: myObj[i][1],
-                        country: myObj[i][2],
-                        map: map,
-                        title: myObj[i][1] + " - " + myObj[i][2],
-                    });
-                    locatie.addListener("click", function () {giveID(locatie, "")});
+                if (this.readyState === 4 && this.status === 200) {
+                    var myObj = JSON.parse(this.responseText);
+                    i = 0;
+                    while (i < myObj.length) {
+                        const locatie = new google.maps.Marker({
+                            position: {lat: myObj[i].latitude, lng: myObj[i].longitude},
+                            id: myObj[i].stn,
+                            name: myObj[i].name,
+                            country: myObj[i].country,
+                            map: map,
+                            title: myObj[i].name + " - " + myObj[i].country,
+                        });
+                        locatie.addListener("click", function () {
+                            giveID(locatie, "")
+                        });
 
-                    const locatie2 = new google.maps.Marker({
-                        position: { lat: myObj[i][3], lng: myObj[i][4] },
-                        id: myObj[i][0],
-                        name: myObj[i][1],
-                        country: myObj[i][2],
-                        map: map2,
-                        title: myObj[i][1] + " - " + myObj[i][2],
-                    });
-                    locatie2.addListener("click", function () {giveID(locatie2, 2)});
-                    i++;
+                        const locatie2 = new google.maps.Marker({
+                            position: {lat: myObj[i].latitude, lng: myObj[i].longitude},
+                            id: myObj[i].stn,
+                            name: myObj[i].name,
+                            country: myObj[i].country,
+                            map: map2,
+                            title: myObj[i].name + " - " + myObj[i].country,
+                        });
+                        locatie2.addListener("click", function () {
+                            giveID(locatie2, 2)
+                        });
+                        i++;
+                    }
                 }
             };
             xmlhttp.open("GET", "fetch_data/valid_stations.php", true);
             xmlhttp.send();
 
             function giveID(station, map) {
-                if (map == 2){
+                if (map === 2){
                     daysBackRight = 0;
                     data2.removeColumn(1);
                     var xmlhttp = new XMLHttpRequest();
                     xmlhttp.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
+                        if (this.readyState === 4 && this.status === 200) {
                             var myObj = JSON.parse(this.responseText);
                             i = 0;
                             while (i < myObj.length){
-                                data2.addRows([[myObj[i][0],  myObj[i][1]]]);
+                                console.log(myObj[i].time);
+                                console.log(myObj[i].rainfall);
+                                data2.addRows([[myObj[i].time,  myObj[i].rainfall]]);
                                 i++;
                             }
                         }
@@ -160,11 +203,11 @@ if (!isset($_SESSION["logged_in"])) {
                     data.removeColumn(1);
                     var xmlhttp = new XMLHttpRequest();
                     xmlhttp.onreadystatechange = function() {
-                        if (this.readyState == 4 && this.status == 200) {
+                        if (this.readyState === 4 && this.status === 200) {
                             var myObj = JSON.parse(this.responseText);
                             i = 0;
                             while (i < myObj.length){
-                                data.addRows([[myObj[i][0],  myObj[i][1]]]);
+                                data.addRows([[myObj[i].time,  myObj[i].rainfall]]);
                                 i++;
                             }
                         }
@@ -195,11 +238,11 @@ if (!isset($_SESSION["logged_in"])) {
 
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
+                    if (this.readyState === 4 && this.status === 200) {
                         var myObj = JSON.parse(this.responseText);
                         i = 0;
                         while (i < myObj.length){
-                            data.addRows([[myObj[i][0],  myObj[i][1]]]);
+                            data.addRows([[myObj[i].time,  myObj[i].rainfall]]);
                             i++;
                         }
                     }
@@ -225,11 +268,11 @@ if (!isset($_SESSION["logged_in"])) {
 
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
+                    if (this.readyState === 4 && this.status === 200) {
                         var myObj = JSON.parse(this.responseText);
                         i = 0;
                         while (i < myObj.length){
-                            data2.addRows([[myObj[i][0],  myObj[i][1]]]);
+                            data2.addRows([[myObj[i].time,  myObj[i].rainfall]]);
                             i++;
                         }
                     }
@@ -254,11 +297,11 @@ if (!isset($_SESSION["logged_in"])) {
 
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
+                    if (this.readyState === 4 && this.status === 200) {
                         var myObj = JSON.parse(this.responseText);
                         i = 0;
                         while (i < myObj.length){
-                            data.addRows([[myObj[i][0],  myObj[i][1]]]);
+                            data.addRows([[myObj[i].time,  myObj[i].rainfall]]);
                             i++;
                         }
                     }
@@ -283,11 +326,11 @@ if (!isset($_SESSION["logged_in"])) {
 
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
+                    if (this.readyState === 4 && this.status === 200) {
                         var myObj = JSON.parse(this.responseText);
                         i = 0;
                         while (i < myObj.length){
-                            data2.addRows([[myObj[i][0],  myObj[i][1]]]);
+                            data2.addRows([[myObj[i].time,  myObj[i].rainfall]]);
                             i++;
                         }
                     }

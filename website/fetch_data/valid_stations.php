@@ -23,10 +23,10 @@ while(! feof($file))
         $stn = (int)$data[0];
         $name = $data[1];
         $country = $data[2];
-        $latitude = (double)$data[3];
-        $longitude = (double)$data[4];
+        $longitude = (double)$data[3];
+        $latitude = (double)$data[4];
         //echo $longitude;
-        array_push($stations, array($stn,$name,$country,$longitude, $latitude));
+        array_push($stations, array("stn" => $stn,"name" => $name,"country" => $country,"longitude" => $longitude, "latitude" =>$latitude));
     }
 
     fclose($file);
