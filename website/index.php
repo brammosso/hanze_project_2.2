@@ -381,7 +381,7 @@ if (!isset($_SESSION["logged_in"])) {
 
         <div class="grid">
             <div class="gl">
-                <h1>Graph rainfall #1 <i class="fas fa-chart-line" style="font-size: 28px"></i></h1>
+                <h1>Graph rainfall #1 &nbsp <i class="fas fa-chart-line" style="font-size: 28px"></i></h1>
                 <div id="map"></div>
                 <div  id="line_top_x" style="width:100%"></div>
                 <button style="margin: 1em 1em 1em 2em" onclick="chartLeftBack();"><--</button>
