@@ -1,0 +1,51 @@
+body {
+    background: white;
+    color: rgb(44, 40,127);
+    font-family: Verdana;
+
+}
+
+/* styling for back button on error page */
+.back {
+    position: absolute;
+    bottom: 10px;
+    left: 0px;
+    padding: 8px 20px;
+    color: rgb(44,40,127);
+    text-decoration: none;
+    font-size: 20px;
+    font-family: Verdana;
+    font-weight: bold;
+
+}
+
+/* styling for back button hover on error page */
+.back:hover {
+    letter-spacing: 0.3px;
+    transition: all 0.4s ease 0s;
+}
+
+/* styling for title message "Try again..." on error page */
+.title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    padding-bottom: 500px;
+    position: fixed;
+    top: 43%;
+    left: 39%;
+    right: 39%;
+    bottom: 45%;
+}
+
+/* styling for sub-title message "Or contact Osaka University research group!" on error page */
+.sub-title {
+    text-align: center;
+    font-size: 20px;
+    position: fixed;
+    top: 48%;
+    left: 39%;
+    right: 39%;
+    bottom: 50%;
+}

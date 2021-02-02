@@ -25,7 +25,6 @@ if (!isset($_SESSION["logged_in"])) {
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPvkYxdvvVADFAfljO3DY6cwn9nbA4G8Q&callback=initMap&libraries=&v=weekly" defer></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
-
     <script type="text/javascript">
         google.charts.load(1.1, {'packages':['line']});
         google.charts.setOnLoadCallback(drawChart1);
@@ -92,9 +91,7 @@ if (!isset($_SESSION["logged_in"])) {
 
         }
 
-
         function drawChart2() {
-
 
             data2 = new google.visualization.DataTable(document.getElementById('line_top_x2'));
 
@@ -121,10 +118,6 @@ if (!isset($_SESSION["logged_in"])) {
 
             chart2.draw(data2, google.charts.Line.convertOptions(options));
         }
-
-
-
-
 
         function initMap() {
             var mapOptions = {
@@ -226,6 +219,7 @@ if (!isset($_SESSION["logged_in"])) {
 
 
         }
+
         function chartLeftBack(){
             if (daysBackLeft > 1){
                 alert("You can't go back any further");
@@ -342,70 +336,70 @@ if (!isset($_SESSION["logged_in"])) {
                 chart2.draw(data2, google.charts.Line.convertOptions(options));
             }
         }
-
-
     </script>
 </head>
 <body onload="myFunction()">
-<div id="wrapper">
-    <!--knop voor menu button-->
-    <input type="checkbox" id="toggle">
-    <!--menu button-->
-    <div id="header">
-        <label for="toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-        <!--img in menu balk-->
-        <img src="images/logo2.png" width="45" height="45">
-    </div>
+    <div id="wrapper">
+        <!--Button for menu button-->
+        <input type="checkbox" id="toggle">
+        <!--Menu button-->
+        <div id="header">
+            <label for="toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+            <!--Img in menu-->
+            <img src="images/logo2.png" width="45" height="45">
+        </div>
 
-    <!--content (wit)-->
-    <div id="content">
+        <!--content (area with the graphs and table)-->
+        <div id="content">
+            <!--table with top 10 humidty country's-->
+                <div class="top10">
+                    <h1>Top 10 humidity &nbsp <i class="fas fa-tint" style="font-size: 28px"></i></h1>
+                    <table id="myTable">
+                        <tr>
+                            <th>Top</th>
+                            <th>Nr</th>
+                            <th>Name</th>
+                            <th>Country</th>
+                            <th>Humidity</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                        </tr>
+                    </table>
+                </div>
 
-            <div class="top10">
-                <h1>Top 10 humidity &nbsp <i class="fas fa-tint" style="font-size: 28px"></i></h1>
-                <table id="myTable">
-                    <tr>
-                        <th>Top</th>
-                        <th>Nr</th>
-                        <th>Name</th>
-                        <th>Country</th>
-                        <th>Humidity</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                    </tr>
-                </table>
-            </div>
-
-        <div class="grid">
-            <div class="gl">
-                <h1>Graph rainfall #1 &nbsp <i class="fas fa-chart-line" style="font-size: 28px"></i></h1>
-                <div id="map"></div>
-                <div  id="line_top_x" style="width:100%"></div>
-                <button style="margin: 1em 1em 1em 2em" onclick="chartLeftBack();"><--</button>
-                <button style="margin: 1em 1em 1em 2em" onclick="chartLeftForward();">--></button>
-            </div>
-            <div class="gr">
-                <h1>Graph rainfall #2 &nbsp <i class="fas fa-chart-line" style="font-size: 28px"></i></h1>
-                <div id="map2"></div>
-                <div  id="line_top_x2" style="width:100%"></div>
-                <button style="margin: 1em 1em 1em 2em" onclick="chartRightBack();"><--</button>
-                <button style="margin: 1em 1em 1em 2em" onclick="chartRightForward();">--></button>
+            <div class="grid">
+                <!--Graph on the left side-->
+                <div class="gl">
+                    <h1>Graph rainfall #1 &nbsp <i class="fas fa-chart-line" style="font-size: 28px"></i></h1>
+                    <div id="map"></div>
+                    <div  id="line_top_x" style="width:100%"></div>
+                    <button style="margin: 1em 1em 1em 2em" onclick="chartLeftBack();"><--</button>
+                    <button style="margin: 1em 1em 1em 2em" onclick="chartLeftForward();">--></button>
+                </div>
+                <!--Graph on the right side-->
+                <div class="gr">
+                    <h1>Graph rainfall #2 &nbsp <i class="fas fa-chart-line" style="font-size: 28px"></i></h1>
+                    <div id="map2"></div>
+                    <div  id="line_top_x2" style="width:100%"></div>
+                    <button style="margin: 1em 1em 1em 2em" onclick="chartRightBack();"><--</button>
+                    <button style="margin: 1em 1em 1em 2em" onclick="chartRightForward();">--></button>
+                </div>
             </div>
         </div>
-    </div>
-    <!--menu uitgeklapt-->
-    <div id="menu">
-        <!--lijst met menu items-->
-        <ul>
-            <li><img src="images/logo8.png" width="100%" height="100%"></li>
-                <li><a href="">Download Files &nbsp <i class="fas fa-file-download" style="font-size: 18px"></a></i></li>
-                <li><a href="login.php">Logout &nbsp <i class="fas fa-sign-out-alt" style="font-size: 18px"></i></a></li>
 
-        </ul>
+        <!--Menu folded out-->
+        <div id="menu">
+            <!--List with menu items-->
+            <ul>
+                <li><img src="images/logo8.png" width="100%" height="100%"></li>
+                    <li><a href="">Download Files &nbsp <i class="fas fa-file-download" style="font-size: 18px"></a></i></li>
+                    <li><a href="login.php">Logout &nbsp <i class="fas fa-sign-out-alt" style="font-size: 18px"></i></a></li>
+            </ul>
+        </div>
     </div>
-</div>
 </body>
 </html>

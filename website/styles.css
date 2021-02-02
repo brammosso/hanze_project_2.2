@@ -9,7 +9,7 @@ body {
     overflow-x: hidden;
 }
 
-/*Header is de balk met de 3 lijntjes en de logo*/
+/*Menu bar styling*/
 #header {
     background-color: #ededed;
     padding: 15px 30px;
@@ -20,34 +20,34 @@ body {
     transition: 0.3s left;
 }
 
-/*Image in de header*/
+/*Image in header*/
 #header img{
     float: right;
     position: relative;
     bottom: 38px;
 }
 
-/*Checkbox die niet gedisplayed word*/
+/*Not shown checkbox*/
 #toggle {
     display: none;
 }
 
-/*dit gebeurd er met de content als de box checked is*/
+/*If content is checked*/
 #toggle:checked~#content {
     left: 240px;
 }
 
-/*dit gebeurd er met de menu als de box checked is*/
+/*If menu is checked*/
 #toggle:checked~#menu {
     left: 0px;
 }
 
-/*dit gebeurd er met de header als de box checked is*/
+/*If box is checked*/
 #toggle:checked~#header {
     left: 240px;
 }
 
-/*Menu met de knoppen logout etc*/
+/*Menu buttons styling*/
 #menu {
     position: fixed;
     left: -240px;
@@ -102,14 +102,14 @@ label[for=toggle] span{
     width: 30px;
 }
 
-/*Dit is het witte gebied waarin de grafieken komen*/
+/*Content area (area with graphs and table) styling*/
 #content {
     position: relative;
     left: 0px;
     transition: 0.3s left;
 }
 
-/*grid settings*/
+/*Grid settings*/
 .grid {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -121,6 +121,7 @@ label[for=toggle] span{
     padding-left: 40px;
     padding-left: 25px;
 }
+
 /*Positioning div content in content*/
 .top10 {
     display: grid;
@@ -141,13 +142,14 @@ label[for=toggle] span{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+/*Styling top10 hover*/
 .top10:hover {
-    /*border: 5px solid rgb(44,40,127);*/
     transition: 0.3s left;
     pointer: cursor;
     background-color: white;
 }
 
+/*Styling top10 h1*/
 .top10 h1 {
     font-family: 'Raleway',sans-serif;
     font-size: 150%;
@@ -158,6 +160,7 @@ label[for=toggle] span{
     font-weight: 700;
 }
 
+/*Styling top10 table*/
 .top10 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
@@ -165,10 +168,8 @@ label[for=toggle] span{
     color: rgb(51,51,51);
 }
 
-
-
-/*styling of the tabs in content area*/
-.grid .gl {
+/*Styling of the graphs in content area*/
+.grid .gl .gr {
     border: 5px solid #ededed;
     padding: 10px;
     background-color: #ededed;
@@ -183,62 +184,14 @@ label[for=toggle] span{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.grid .gl:hover {
-    /*border: 5px solid rgb(44,40,127);*/
+/*Styling of the graphs in content area*/
+.grid .gl .gr:hover {
     transition: 0.3s left;
     pointer: cursor;
     background-color: white;
 }
 
-/*styling of the tabs in content area*/
-.grid .gr {
-    border: 5px solid #ededed;
-    padding: 10px;
-    padding-top: 0px;
-    background-color: #ededed;
-    overflow: auto;
-    margin: 10px;
-    border-radius: 5px;
-    -webkit-transition: background-color 0.3s ease-in-out;
-    -moz-transition: background-color 0.3s ease-in-out;
-    -o-transition: background-color 0.3s ease-in-out;
-    transition: background-color 0.3s ease-in-out;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-}
-
-.grid .gr:hover {
-    /*border: 5px solid rgb(44,40,127);*/
-    transition: 0.3s left;
-    pointer: cursor;
-    background-color: white;
-}
-
-/*styling of the tabs in content area
-.grid .weatherinfo {
-    border: 5px solid #ededed;
-    padding: 10px;
-    background-color: #ededed;
-    padding-top: 0px;
-    overflow: auto;
-    margin: 10px;
-    border-radius: 5px;
-    -webkit-transition: background-color 0.3s ease-in-out;
-    -moz-transition: background-color 0.3s ease-in-out;
-    -o-transition: background-color 0.3s ease-in-out;
-    transition: background-color 0.3s ease-in-out;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.grid .weatherinfo:hover {
-    border: 5px solid rgb(44,40,127);
-    transition: 0.3s left;
-    pointer: cursor;
-    background-color: white;
-}
-*/
-
-
+/*Styling of the graphs in content area*/
 .grid h1 {
     font-family: 'Raleway',sans-serif;
     font-size: 150%;
@@ -250,16 +203,18 @@ label[for=toggle] span{
 
 }
 
+/*Styling map in graph area*/
 #map {
     height: 100%;
     padding: 10px;
 }
 
+/*Styling map in graph area*/
 #map2 {
     height: 100%;
 }
 
-/* resizing screen */
+/*Resizing screen*/
 @media only screen and (max-width: 1300px) {
 
     .grid {
@@ -275,12 +230,12 @@ label[for=toggle] span{
     }
 }
 
-
-
-/* scrollbar */
+/*Scrollbar*/
 ::-webkit-scrollbar {
     width: 12px;
 }
+
+/*Scrollbar*/
 ::-webkit-scrollbar-thumb {
     background: rgb(61, 57, 153);
     border-radius: 10px;
