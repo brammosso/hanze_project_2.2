@@ -387,7 +387,7 @@ if (!isset($_SESSION["logged_in"])) {
             <ul>
                 <li><img src="images/logo8.png" width="100%" height="100%"></li>
                     <li><a href="download.php">Download Files &nbsp <i class="fas fa-file-download" style="font-size: 18px"></a></i></li>
-                    <li><a href="login.php">Logout &nbsp <i class="fas fa-sign-out-alt" style="font-size: 18px"></i></a></li>
+                    <li><a href="logout.php">Logout &nbsp <i class="fas fa-sign-out-alt" style="font-size: 18px"></i></a></li>
             </ul>
         </div>
     </div>
