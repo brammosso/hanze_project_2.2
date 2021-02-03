@@ -13,7 +13,6 @@ $data = array();
 $station = sprintf("%06d", $_GET['station']);
 $back = $_GET['back'];
 $date = date("Y-m-d",strtotime("-{$back} day"));
-
 $filepath="../testdata/rainfall/";
 $filepath.= $date;
 $filepath.= "/";

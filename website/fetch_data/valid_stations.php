@@ -8,11 +8,7 @@ if (!isset($_SESSION)) {
 if (!isset($_SESSION["logged_in"])) {
     header('Location: ../login.php');
 }
-
-
-
 $stations = array();
-
 $filepath="../testdata/valid_stations.txt";
 $file = fopen($filepath,"r");
 
@@ -25,11 +21,9 @@ while(! feof($file))
         $country = $data[2];
         $longitude = (double)$data[3];
         $latitude = (double)$data[4];
-        //echo $longitude;
         array_push($stations, array("stn" => $stn,"name" => $name,"country" => $country,"longitude" => $longitude, "latitude" =>$latitude));
     }
 
-    fclose($file);
-    echo json_encode($stations);
-
+fclose($file);
+echo json_encode($stations);
 ?>

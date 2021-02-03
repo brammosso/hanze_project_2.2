@@ -27,15 +27,16 @@ if (!isset($_SESSION["logged_in"])) {
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
 
     <script type="text/javascript">
-        google.charts.load(1.1, {'packages':['line']});
+        google.charts.load('46', {'packages':['line']});
         google.charts.setOnLoadCallback(drawChart1);
         google.charts.setOnLoadCallback(drawChart2);
 
-        function myFunction() {
-            var table = document.getElementById("myTable");
+        function makeTable() {
+            //make the top10 table
+            var table = document.getElementById("top10Table");
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
+                if (this.readyState === 4 && this.status === 200) {
                     var myObj = JSON.parse(this.responseText);
                     i = 0;
                     while (i < myObj.length){
@@ -64,15 +65,11 @@ if (!isset($_SESSION["logged_in"])) {
         }
 
         function drawChart1() {
-
+            //make the chart
             data = new google.visualization.DataTable(document.getElementById('line_top_x'));
-
             data.addColumn('number', 'Time in hours');
-
             data.addColumn('number', 'Weatherstation ....');
-
             data.addRows([[0,  0]]);
-
 
             options = {
                 chart: {
@@ -87,21 +84,15 @@ if (!isset($_SESSION["logged_in"])) {
                 }
             };
             chart = new google.charts.Line(document.getElementById('line_top_x'));
-
             chart.draw(data, google.charts.Line.convertOptions(options));
-
         }
 
 
         function drawChart2() {
-
-
+            //make the chart right
             data2 = new google.visualization.DataTable(document.getElementById('line_top_x2'));
-
             data2.addColumn('number', 'Time in hours');
-
             data2.addColumn('number', 'Weatherstation ....');
-
             data2.addRows([[0,  0]]);
 
             options = {
@@ -118,15 +109,11 @@ if (!isset($_SESSION["logged_in"])) {
             };
 
             chart2 = new google.charts.Line(document.getElementById('line_top_x2'));
-
             chart2.draw(data2, google.charts.Line.convertOptions(options));
         }
 
-
-
-
-
         function initMap() {
+            //make the maps
             var mapOptions = {
                 zoom: 5,
                 center: { lat: 53.1424984, lng: 7.0367877 },
@@ -173,22 +160,27 @@ if (!isset($_SESSION["logged_in"])) {
             xmlhttp.send();
 
             function giveID(station, map) {
+                //make the maps
                 if (map === 2){
                     daysBackRight = 0;
                     data2.removeColumn(1);
+
                     var xmlhttp = new XMLHttpRequest();
                     xmlhttp.onreadystatechange = function() {
                         if (this.readyState === 4 && this.status === 200) {
                             var myObj = JSON.parse(this.responseText);
                             i = 0;
                             while (i < myObj.length){
-                                console.log(myObj[i].time);
-                                console.log(myObj[i].rainfall);
+                                //console.log(myObj[i].time);
+                                //console.log(myObj[i].rainfall);
                                 data2.addRows([[myObj[i].time,  myObj[i].rainfall]]);
+
                                 i++;
                             }
+                            console.log(data2);
                         }
                     };
+
                     xmlhttp.open("GET", "fetch_data/chart.php?station="+station.id+"&back=0", true);
                     xmlhttp.send();
                     id_selected_right = station.id;
@@ -218,7 +210,6 @@ if (!isset($_SESSION["logged_in"])) {
                     name_selected = station.name;
                     country_selected = station.country;
                     data.addColumn('number', station.name + " - " +station.country);
-
                     chart = new google.charts.Line(document.getElementById('line_top_x'));
                     chart.draw(data, google.charts.Line.convertOptions(options));
                 }
@@ -232,8 +223,7 @@ if (!isset($_SESSION["logged_in"])) {
             }
             else{
                 daysBackLeft ++;
-                data = new google.visualization.DataTable(document.getElementById('line_top_x'));
-                data.addColumn('number', 'Time in hours');
+                data.removeColumn(1);
                 data.addColumn('number', name_selected + " - " + country_selected);
 
                 var xmlhttp = new XMLHttpRequest();
@@ -262,8 +252,7 @@ if (!isset($_SESSION["logged_in"])) {
             }
             else{
                 daysBackRight ++;
-                data2 = new google.visualization.DataTable(document.getElementById('line_top_x2'));
-                data2.addColumn('number', 'Time in hours');
+                data2.removeColumn(1);
                 data2.addColumn('number', name_selected_right + " - " + country_selected_right);
 
                 var xmlhttp = new XMLHttpRequest();
@@ -275,6 +264,7 @@ if (!isset($_SESSION["logged_in"])) {
                             data2.addRows([[myObj[i].time,  myObj[i].rainfall]]);
                             i++;
                         }
+                        console.log(data2)
                     }
                 };
                 xmlhttp.open("GET", "fetch_data/chart.php?station="+id_selected_right+"&back=" +daysBackRight, true);
@@ -291,8 +281,7 @@ if (!isset($_SESSION["logged_in"])) {
             }
             else{
                 daysBackLeft--;
-                data = new google.visualization.DataTable(document.getElementById('line_top_x'));
-                data.addColumn('number', 'Time in hours');
+                data.removeColumn(1);
                 data.addColumn('number', name_selected + " - " + country_selected);
 
                 var xmlhttp = new XMLHttpRequest();
@@ -320,8 +309,7 @@ if (!isset($_SESSION["logged_in"])) {
             }
             else{
                 daysBackRight--;
-                data2 = new google.visualization.DataTable(document.getElementById('line_top_x2'));
-                data2.addColumn('number', 'Time in hours');
+                data2.removeColumn(1);
                 data2.addColumn('number', name_selected_right + " - " + country_selected_right);
 
                 var xmlhttp = new XMLHttpRequest();
@@ -346,7 +334,7 @@ if (!isset($_SESSION["logged_in"])) {
 
     </script>
 </head>
-<body onload="myFunction()">
+<body onload="makeTable()">
 <div id="wrapper">
     <!--knop voor menu button-->
     <input type="checkbox" id="toggle">
@@ -366,7 +354,7 @@ if (!isset($_SESSION["logged_in"])) {
 
             <div class="top10">
                 <h1>Top 10 humidity &nbsp <i class="fas fa-tint" style="font-size: 28px"></i></h1>
-                <table id="myTable">
+                <table id="top10Table">
                     <tr>
                         <th>Top</th>
                         <th>Nr</th>
@@ -403,7 +391,6 @@ if (!isset($_SESSION["logged_in"])) {
             <li><img src="images/logo8.png" width="100%" height="100%"></li>
                 <li><a href="">Download Files &nbsp <i class="fas fa-file-download" style="font-size: 18px"></a></i></li>
                 <li><a href="login.php">Logout &nbsp <i class="fas fa-sign-out-alt" style="font-size: 18px"></i></a></li>
-
         </ul>
     </div>
 </div>

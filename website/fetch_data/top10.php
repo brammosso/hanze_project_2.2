@@ -10,7 +10,6 @@ if (!isset($_SESSION["logged_in"])) {
 }
 
 $stations = array();
-
 $filepath="../testdata/humidity_top10.txt";
 $file = fopen($filepath,"r");
 
