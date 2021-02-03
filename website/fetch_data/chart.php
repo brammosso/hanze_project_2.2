@@ -9,9 +9,11 @@ if (!isset($_SESSION)) {
 if (!isset($_SESSION["logged_in"])) {
     header('Location: ../login.php');
 }
+
 $data = array();
 $station = sprintf("%06d", $_GET['station']);
 $back = $_GET['back'];
+$chart = $_GET['chart'];
 $date = date("Y-m-d",strtotime("-{$back} day"));
 $filepath="../testdata/rainfall/";
 $filepath.= $date;
@@ -35,4 +37,60 @@ if ( file_exists($filepath) ) {
     fclose($file);
     echo json_encode($data);
 }
+
+function generateXML($data, $chart) {
+    if ($chart == 0) {
+        $title = "Rainfall left";
+        $datatypes = array("hour", "rainfall_in_mm");
+        $xmlDoc = new DOMDocument();
+        $root = $xmlDoc -> appendChild($xmlDoc -> 
+                                createElement("data"));
+        $tabRainfalls = $root -> appendChild($xmlDoc -> 
+                                createElement('rows')); 
+        foreach ($data as $value) {
+            if(!empty($value)) {
+                $tabRainfall = $tabRainfalls -> appendChild($xmlDoc ->  
+                                  createElement('rainfall')); 
+                $counter = 0;
+                foreach ($value as $key) {
+                    $tabRainfall -> appendChild($xmlDoc -> 
+                                      createElement($datatypes[$counter], $key)); 
+                    $counter++;
+                }
+            }
+        }
+        header("Content-Type: text/plain"); 
+        $xmlDoc -> formatOutput = true; 
+        $file_name = str_replace(' ', '_', "rainfall_left") . '.xml';
+        $xmlDoc -> save($file_name); 
+        return $file_name; 
+    } else {
+        $title = "Rainfall right";
+        $datatypes = array("hour", "rainfall_in_mm");
+        $xmlDoc = new DOMDocument();
+        $root = $xmlDoc -> appendChild($xmlDoc -> 
+                                createElement("data"));
+        $tabRainfalls = $root -> appendChild($xmlDoc -> 
+                                createElement('rows')); 
+        foreach ($data as $value) {
+            if(!empty($value)) {
+                $tabRainfall = $tabRainfalls -> appendChild($xmlDoc ->  
+                                  createElement('rainfall')); 
+                $counter = 0;
+                foreach ($value as $key) {
+                    $tabRainfall -> appendChild($xmlDoc -> 
+                                      createElement($datatypes[$counter], $key)); 
+                    $counter++;
+                }
+            }
+        }
+        header("Content-Type: text/plain"); 
+        $xmlDoc -> formatOutput = true; 
+        $file_name = str_replace(' ', '_', "rainfall_right") . '.xml';
+        $xmlDoc -> save($file_name); 
+        return $file_name;
+    }
+}
+
+generateXML($data, $chart);
 ?>

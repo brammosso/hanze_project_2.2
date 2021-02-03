@@ -9,6 +9,33 @@ if (!isset($_SESSION["logged_in"])) {
     header('Location: ../login.php');
 }
 
+function generateXML($stations) {
+    $title = "Humidity data";
+    $datatypes = array("time", "date", "nr", "humidity", "name", "country", "latitude", "longitude");
+    $xmlDoc = new DOMDocument();
+    $root = $xmlDoc -> appendChild($xmlDoc -> 
+                            createElement("data"));
+    $tabHumiditys = $root -> appendChild($xmlDoc -> 
+                            createElement('rows')); 
+    foreach ($stations as $station) {
+        if(!empty($station)) {
+            $tabHumidity = $tabHumiditys -> appendChild($xmlDoc ->  
+                              createElement('humidity')); 
+            $counter = 0;
+            foreach ($station as $data) {
+                $tabHumidity -> appendChild($xmlDoc -> 
+                                  createElement($datatypes[$counter], $data)); 
+                $counter++;
+            }
+        }
+    }
+    header("Content-Type: text/plain"); 
+    $xmlDoc -> formatOutput = true; 
+    $file_name = str_replace(' ', '_', "humidity") . '.xml';
+    $xmlDoc -> save($file_name); 
+    return $file_name; 
+}
+
 $stations = array();
 $filepath="../testdata/humidity_top10.txt";
 $file = fopen($filepath,"r");
@@ -35,5 +62,6 @@ while(! feof($file))
 
 fclose($file);
 echo json_encode($stations);
+generateXML($stations);
 
 ?>
