@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: white;
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(44, 40,127);
+    font-family: Verdana;
+    font-weight: 300;
+}
+
+/* login box sizing and styling*/
+.login_div  {
+    width: 330px;
+    height: 480px;
+    padding: 60px 35px 35px 35px;
+    border-radius: 10px;
+    background: #ededed;
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/*logo styling*/
+.logo {
+    background-image:url("images/100x100.png");
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/*Title 'Osaka univeristy' styling*/
+.title {
+    text-align: center;
+    font-size: 28px;
+    padding-top: 24px;
+    letter-spacing: 0.5px;
+}
+
+/*Subtitle 'dashboard' styling*/
+.sub-title {
+    text-align: center;
+    font-size: 15px;
+    padding-top: 7px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/*Login button*/
+.signin-button {
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: rgb(143, 143, 143);
+    padding: 15px;
+    border-radius: 5px;
+    display: inline-block;
+    border: none;
+    transition: all 0.4s ease 0s;
+    box-shadow: 10px 10px -10px rgba(0,0,0,0.57);
+    position:relative;
+    margin: -20px -50px;
+    width:100px;
+    bottom: 20%;
+    left:50%;
+    margin-top: 10%;
+
+}
+
+/*Login button hover*/
+.signin-button:hover {
+    background: rgb(44,40,127);
+    letter-spacing: 1px;
+    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+    transition: all 0.4s ease 0s;
+}
+
+/*Text-input styling*/
+.input-form {
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 30px;
+}

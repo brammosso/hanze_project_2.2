@@ -1,0 +1,271 @@
+*{
+    box-sizing: border-box;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Verdana;
+    overflow-x: hidden;
+}
+
+/*Menu bar styling*/
+#header {
+    background-color: #ededed;
+    padding: 15px 30px;
+    display: relative;
+    align-items: center;
+    position: relative;
+    left: 0;
+    transition: 0.3s left;
+}
+
+/*Image in header*/
+#header img{
+    float: right;
+    position: relative;
+    bottom: 38px;
+}
+
+/*Not shown checkbox*/
+#toggle {
+    display: none;
+}
+
+/*If content is checked*/
+#toggle:checked~#content {
+    left: 240px;
+}
+
+/*If menu is checked*/
+#toggle:checked~#menu {
+    left: 0px;
+}
+
+/*If box is checked*/
+#toggle:checked~#header {
+    left: 240px;
+}
+
+/*Menu buttons styling*/
+#menu {
+    position: fixed;
+    left: -240px;
+    top: 0;
+    bottom: 0;
+    width: 240px;
+    background-color: rgb(44,40,127);
+    transition: 0.3s left;
+}
+
+/*Menu styling*/
+#menu ul {
+    padding: 0px;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+/*Menu styling*/
+#menu>ul>li>a {
+    text-decoration: none;
+    display: block;
+    padding: 15px 20px;
+    color: white;
+}
+
+/*Menu styling*/
+#menu img{
+    padding: 6px;
+    position: center;
+}
+
+/*Menu styling*/
+#menu>ul>li>a:hover {
+    background-color: rgb(61, 57, 153);
+}
+
+label[for=toggle] {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 30px;
+    justify-content: space-between;
+}
+
+label[for=toggle] span{
+    display: block;
+    height: 5px;
+    background-color: #6c6c6c;
+    border-radius: 2px;
+    width: 30px;
+}
+
+/*Content area (area with graphs and table) styling*/
+#content {
+    position: relative;
+    left: 0px;
+    transition: 0.3s left;
+}
+
+/*Grid settings*/
+.grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin: 30px;
+    grid-row-gap: 2em;
+    grid-column-gap: 2em;
+    padding-right: 40px;
+    padding-top: 1em;
+    padding-left: 40px;
+    padding-left: 25px;
+}
+
+/*Positioning div content in content*/
+.top10 {
+    display: grid;
+    grid-template-columns: 100%;
+    border: 5px solid #ededed;
+    padding: 10px;
+    background-color: #ededed;
+    padding-top: 0px;
+    overflow: auto;
+    margin-top: 40px;
+    margin-left: 20%;
+    margin-right: 20%;
+    border-radius: 5px;
+    -webkit-transition: background-color 0.3s ease-in-out;
+    -moz-transition: background-color 0.3s ease-in-out;
+    -o-transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/*Styling top10 hover*/
+.top10:hover {
+    transition: 0.3s left;
+    pointer: cursor;
+    background-color: white;
+}
+
+/*Styling top10 h1*/
+.top10 h1 {
+    font-family: 'Raleway',sans-serif;
+    font-size: 150%;
+    color: #333333;
+    font-weight: 100;
+    line-height: 13px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/*Styling top10 table*/
+.top10 table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: left;
+    color: rgb(51,51,51);
+}
+
+/*Styling of the graphs in content area*/
+.grid .gl {
+    border: 5px solid #ededed;
+    padding: 10px;
+    background-color: #ededed;
+    padding-top: 0px;
+    overflow: auto;
+    margin: 10px;
+    border-radius: 5px;
+    -webkit-transition: background-color 0.3s ease-in-out;
+    -moz-transition: background-color 0.3s ease-in-out;
+    -o-transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow-x: hidden;
+}
+
+/*Styling of the graphs in content area*/
+.grid .gl:hover {
+    transition: 0.3s left;
+    pointer: cursor;
+    background-color: white;
+}
+
+/*Styling of the graphs in content area*/
+.grid .gr {
+    border: 5px solid #ededed;
+    padding: 10px;
+    background-color: #ededed;
+    padding-top: 0px;
+    overflow: auto;
+    margin: 10px;
+    border-radius: 5px;
+    -webkit-transition: background-color 0.3s ease-in-out;
+    -moz-transition: background-color 0.3s ease-in-out;
+    -o-transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow-x: hidden;
+}
+
+/*Styling of the graphs in content area*/
+.grid .gr:hover {
+    transition: 0.3s left;
+    pointer: cursor;
+    background-color: white;
+}
+/*Styling of the graphs in content area*/
+.grid h1 {
+    font-family: 'Raleway',sans-serif;
+    font-size: 150%;
+    color: #333333;
+    font-weight: 100;
+    line-height: 13px;
+    text-transform: uppercase;
+    font-weight: 700;
+
+}
+
+/*Styling map in graph area*/
+#map {
+    height: 60%;
+    margin: 5px;
+    border: 3px solid #EDEDED;
+    border-radius: 3px;
+}
+
+/*Styling map in graph area*/
+#map2 {
+    height: 60%;
+    margin: 5px;
+    border: 3px solid #EDEDED;
+    border-radius: 3px;
+}
+
+/*Resizing screen*/
+@media only screen and (max-width: 1300px) {
+
+    .grid {
+        display: grid;
+        grid-template-columns: 100%;
+        margin: 30px;
+        grid-row-gap: 2em;
+        grid-column-gap: 2em;
+        padding-right: 40px;
+        padding-top: 1em;
+        padding-left: 40px;
+        padding-left: 25px;
+    }
+}
+
+/*Scrollbar*/
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/*Scrollbar*/
+::-webkit-scrollbar-thumb {
+    background: rgb(61, 57, 153);
+    border-radius: 10px;
+}
