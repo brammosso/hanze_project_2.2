@@ -36,7 +36,7 @@ body {
     box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
-/* title 'Osaka univeristy' styling*/
+/*Title 'Osaka univeristy' styling*/
 .title {
     text-align: center;
     font-size: 28px;
@@ -44,7 +44,7 @@ body {
     letter-spacing: 0.5px;
 }
 
-/*subtitle 'dashboard' styling*/
+/*Subtitle 'dashboard' styling*/
 .sub-title {
     text-align: center;
     font-size: 15px;
@@ -54,10 +54,7 @@ body {
     font-weight: bold;
 }
 
-/*input fields styling*/
-
-
-/* login knop */
+/*Login button*/
 .signin-button {
     color: #fff;
     text-transform: uppercase;
@@ -78,6 +75,7 @@ body {
 
 }
 
+/*Login button hover*/
 .signin-button:hover {
     background: rgb(44,40,127);
     letter-spacing: 1px;
@@ -87,10 +85,9 @@ body {
     transition: all 0.4s ease 0s;
 }
 
+/*Text-input styling*/
 .input-form {
     text-align: center;
     padding-top: 40px;
     padding-bottom: 30px;
 }
-
-
