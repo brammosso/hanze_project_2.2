@@ -7,18 +7,19 @@ public class DataCollector {
     private WeatherData weatherData;
     private ServerSocket ss;
 
-    public DataCollector(int port) {
+    public DataCollector(String host, int port) {
         // Initialize and start the weatherData
-        weatherData = new WeatherData();
+        weatherData = new WeatherData(host);
         weatherData.start();
         // Create the serversocket
-        System.out.println("Waiting for clients");
+        System.out.println("[+] Data collector started on " + host + ":" + port);
         ss = null;
         try {
             ss = new ServerSocket(port);
+            System.out.println("[+] Succesfully created socket object");
         }
         catch (IOException e) {
-            System.out.println("IOException in serversocket: " + e);
+            System.out.println("[x] IOException during socket object creation: " + e);
         }
     }
 
@@ -27,13 +28,16 @@ public class DataCollector {
             try {
                 // Wait for a connection
                 Socket soc = ss.accept();
-                System.out.println("Client connected");
+                
+                // command line logging
+                System.out.println("[+] Accepted a connection");
+
                 // Create a new weatherstation and add the socket as a parameter
                 WeatherThread wt = new WeatherThread(soc, weatherData);
                 wt.start();
             }
             catch (IOException e) {
-                System.out.println("Error in socket creation");
+                System.out.println("[x] IOException during socket accepting: " + e);
             }
         }
     }

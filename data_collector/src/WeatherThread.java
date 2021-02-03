@@ -16,7 +16,6 @@ public class WeatherThread extends Thread {
     }
 
     public void run() {
-        System.out.println("Thread running");
         while (true) {
             try {
                 // Read all data from the client
@@ -75,7 +74,6 @@ public class WeatherThread extends Thread {
     }
 
     public void start() {
-        System.out.println("Thread starting");
         if (thread == null) {
             thread = new Thread(this);
             thread.start();
