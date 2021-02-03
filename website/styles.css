@@ -169,7 +169,7 @@ label[for=toggle] span{
 }
 
 /*Styling of the graphs in content area*/
-.grid .gl .gr {
+.grid .gl {
     border: 5px solid #ededed;
     padding: 10px;
     background-color: #ededed;
@@ -182,15 +182,39 @@ label[for=toggle] span{
     -o-transition: background-color 0.3s ease-in-out;
     transition: background-color 0.3s ease-in-out;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow-x: hidden;
 }
 
 /*Styling of the graphs in content area*/
-.grid .gl .gr:hover {
+.grid .gl:hover {
     transition: 0.3s left;
     pointer: cursor;
     background-color: white;
 }
 
+/*Styling of the graphs in content area*/
+.grid .gr {
+    border: 5px solid #ededed;
+    padding: 10px;
+    background-color: #ededed;
+    padding-top: 0px;
+    overflow: auto;
+    margin: 10px;
+    border-radius: 5px;
+    -webkit-transition: background-color 0.3s ease-in-out;
+    -moz-transition: background-color 0.3s ease-in-out;
+    -o-transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow-x: hidden;
+}
+
+/*Styling of the graphs in content area*/
+.grid .gr:hover {
+    transition: 0.3s left;
+    pointer: cursor;
+    background-color: white;
+}
 /*Styling of the graphs in content area*/
 .grid h1 {
     font-family: 'Raleway',sans-serif;
@@ -205,13 +229,18 @@ label[for=toggle] span{
 
 /*Styling map in graph area*/
 #map {
-    height: 100%;
-    padding: 10px;
+    height: 60%;
+    margin: 5px;
+    border: 3px solid #EDEDED;
+    border-radius: 3px;
 }
 
 /*Styling map in graph area*/
 #map2 {
-    height: 100%;
+    height: 60%;
+    margin: 5px;
+    border: 3px solid #EDEDED;
+    border-radius: 3px;
 }
 
 /*Resizing screen*/
