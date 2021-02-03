@@ -329,20 +329,6 @@ if (!isset($_SESSION["logged_in"])) {
     </script>
 </head>
 <body onload="makeTable()">
-<div id="wrapper">
-    <!--knop voor menu button-->
-    <input type="checkbox" id="toggle">
-    <!--menu button-->
-    <div id="header">
-        <label for="toggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-        <!--img in menu balk-->
-        <img src="images/logo2.png" width="45" height="45">
-    </div>
-<body onload="myFunction()">
     <div id="wrapper">
         <!--Button for menu button-->
         <input type="checkbox" id="toggle">
