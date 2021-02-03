@@ -177,7 +177,7 @@ if (!isset($_SESSION["logged_in"])) {
                         }
                     };
 
-                    xmlhttp.open("GET", "fetch_data/chart.php?station="+station.id+"&back=0", true);
+                    xmlhttp.open("GET", "fetch_data/chart.php?station="+station.id+"&back=0&chart=1", true);
                     xmlhttp.send();
                     id_selected_right = station.id;
                     name_selected_right = station.name;
@@ -200,7 +200,7 @@ if (!isset($_SESSION["logged_in"])) {
                             }
                         }
                     };
-                    xmlhttp.open("GET", "fetch_data/chart.php?station="+station.id+"&back=0", true);
+                    xmlhttp.open("GET", "fetch_data/chart.php?station="+station.id+"&back=0&chart=0", true);
                     xmlhttp.send();
                     id_selected = station.id;
                     name_selected = station.name;
@@ -234,7 +234,7 @@ if (!isset($_SESSION["logged_in"])) {
                         }
                     }
                 };
-                xmlhttp.open("GET", "fetch_data/chart.php?station="+id_selected+"&back=" +daysBackLeft, true);
+                xmlhttp.open("GET", "fetch_data/chart.php?station="+id_selected+"&back=" +daysBackLeft+"&chart=0", true);
                 xmlhttp.send();
 
                 chart = new google.charts.Line(document.getElementById('line_top_x'));
@@ -263,7 +263,7 @@ if (!isset($_SESSION["logged_in"])) {
                         }
                     }
                 };
-                xmlhttp.open("GET", "fetch_data/chart.php?station="+id_selected_right+"&back=" +daysBackRight, true);
+                xmlhttp.open("GET", "fetch_data/chart.php?station="+id_selected_right+"&back=" +daysBackRight+"&chart=1", true);
                 xmlhttp.send();
 
                 chart2 = new google.charts.Line(document.getElementById('line_top_x2'));
@@ -291,7 +291,7 @@ if (!isset($_SESSION["logged_in"])) {
                         }
                     }
                 };
-                xmlhttp.open("GET", "fetch_data/chart.php?station="+id_selected+"&back=" +daysBackLeft, true);
+                xmlhttp.open("GET", "fetch_data/chart.php?station="+id_selected+"&back=" +daysBackLeft+"&chart=0", true);
                 xmlhttp.send();
 
                 chart = new google.charts.Line(document.getElementById('line_top_x'));
@@ -319,7 +319,7 @@ if (!isset($_SESSION["logged_in"])) {
                         }
                     }
                 };
-                xmlhttp.open("GET", "fetch_data/chart.php?station="+id_selected_right+"&back=" +daysBackRight, true);
+                xmlhttp.open("GET", "fetch_data/chart.php?station="+id_selected_right+"&back=" +daysBackRight+"&chart=1", true);
                 xmlhttp.send();
 
                 chart2 = new google.charts.Line(document.getElementById('line_top_x2'));
